@@ -27,7 +27,7 @@ class ClientRestStatImplIntegrationTest {
 
     private ClientRestStatImpl client;
 
-/*    @BeforeEach
+    @BeforeEach
     void setUp() throws IOException {
         mockWebServer = new MockWebServer();
         mockWebServer.start();
@@ -37,7 +37,7 @@ class ClientRestStatImplIntegrationTest {
                 .build();
 
         client = new ClientRestStatImpl(restClient);
-    }*/
+    }
 
     @AfterEach
     void tearDown() throws IOException {

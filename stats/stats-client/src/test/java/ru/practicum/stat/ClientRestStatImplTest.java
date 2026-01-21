@@ -51,10 +51,10 @@ public class ClientRestStatImplTest {
     private final LocalDateTime testStart = LocalDateTime.of(2024, 1, 1, 10, 0);
     private final LocalDateTime testEnd = LocalDateTime.of(2024, 1, 1, 12, 0);
 
-/*    @BeforeEach
+    @BeforeEach
     void setUp() {
         clientRestStat = new ClientRestStatImpl(restClient);
-    }*/
+    }
 
     @Test
     void addStat_ShouldReturnTrue_WhenRequestSuccessful() {
