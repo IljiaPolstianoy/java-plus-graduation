@@ -28,11 +28,13 @@
         <mockwebserver.version>4.12.0</mockwebserver.version>
         <jakarta.persistence-api.version>3.1.0</jakarta.persistence-api.version>
         <spring-boot-starter-validation.version>3.5.5</spring-boot-starter-validation.version>
+        <spring-cloud-dependencies.version>2025.0.1</spring-cloud-dependencies.version>
     </properties>
 
     <modules>
         <module>stats</module>
-        <module>main-service</module>
+        <module>infra</module>
+        <module>core</module>
     </modules>
 
     <dependencyManagement>
@@ -96,6 +98,14 @@
                 <groupId>jakarta.persistence</groupId>
                 <artifactId>jakarta.persistence-api</artifactId>
                 <version>${jakarta.persistence-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

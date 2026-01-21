@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: mainservice
+          uri: lb://MAIN-SERVICE
+          predicates:
+            - Path=/admin/categories/**, /admin/compilations/**, /admin/comments/**, /admin/events/**, /admin/users/**, /categories/**, /compilations/**, /events/**, /users/**, /comments/**
+
+        - id: stats-service
+          uri: lb://STATS-SERVER
+          predicates:
+            - Path=/stats/**, /hit/**
+
+      discovery:
+        locator:
+          enabled: false
+          lower-case-service-id: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      mainservice:
+        register-health-indicator: true
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-duration-in-open-state: 5s
+        failure-rate-threshold: 50
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.loadbalancer: DEBUG
+    reactor.netty.http.client: DEBUG
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway,routemappings
+  endpoint:
+    health:
+      show-details: always
