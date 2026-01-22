@@ -1,6 +1,6 @@
 spring:
   application:
-    name: gateway
+    name: GATEWAY-SERVER
   cloud:
     gateway:
       routes:
@@ -44,7 +44,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,gateway,routemappings
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
   endpoint:
     health:
       show-details: always
