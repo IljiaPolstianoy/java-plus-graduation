@@ -35,12 +35,6 @@ resilience4j:
         wait-duration-in-open-state: 5s
         failure-rate-threshold: 50
 
-logging:
-  level:
-    org.springframework.cloud.gateway: DEBUG
-    org.springframework.cloud.loadbalancer: DEBUG
-    reactor.netty.http.client: DEBUG
-
 server:
   port: 8080
 
