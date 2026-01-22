@@ -58,7 +58,6 @@ public class EventServiceImpl implements EventService {
     private final UserRepository userRepository;
     private final LocationRepository locationRepository;
     private final RequestRepository requestRepository;
-    private List<ViewStatsDto> stats;
 
     private void validateFilter(EventFilterBase filter) throws FilterValidationException, EventDateException {
 
@@ -226,7 +225,6 @@ public class EventServiceImpl implements EventService {
         Event updatedEvent = eventRepository.save(event);
 
         log.info("Main-service. updateEventById success: id = {}", updatedEvent.getId());
-
         return eventMapper.toEventFullDto(updatedEvent);
     }
 
@@ -382,17 +380,28 @@ public class EventServiceImpl implements EventService {
     }
 
     private void enrichEventWithAdditionalData(EventDtoFull event) {
-        // confirmedRequests
         Long confirmedRequests = requestRepository.countConfirmedRequests(event.getId());
-        log.info("Main-service. enrichEvent: eventId = {}, confirmedRequests = {} ", event.getId(), confirmedRequests);
+        log.info("Main-service. enrichEvent: eventId = {}, confirmedRequests = {} ",
+                event.getId(), confirmedRequests);
         event.setConfirmedRequests(confirmedRequests);
 
-        // views
         String uri = "/events/" + event.getId();
-        List<ViewStatsDto> stats = clientRestStat.getStat(event.getCreatedOn().minusMinutes(1), LocalDateTime.now().plusMinutes(1), List.of(uri), true);
+
+        LocalDateTime start = LocalDateTime.now().minusMinutes(1);
+        LocalDateTime end = LocalDateTime.now().plusMinutes(1);
+
+        List<ViewStatsDto> stats = clientRestStat.getStat(
+                start,
+                end,
+                List.of(uri),
+                true
+        );
+
+        log.info("Main-service. enrichEvent: stats response for uri {} = {}", uri, stats);
+
         Long views = stats.isEmpty() ? 0L : stats.get(0).getHits();
-        log.info("Main-service. enrichEvent: eventId = {}, hits = {} ", event.getId(), views);
+        log.info("Main-service. enrichEvent: eventId = {}, hits = {} ",
+                event.getId(), views);
         event.setViews(views);
     }
-
 }
