@@ -1,28 +1,90 @@
 spring:
   application:
-    name: GATEWAY-SERVER
+    name: gateway-server
   cloud:
     gateway:
       routes:
-        - id: mainservice
-          uri: lb://MAIN-SERVICE
+        - id: main-service-admin-users
+          uri: lb://main-service
           predicates:
-            - Path=/admin/categories/**, /admin/compilations/**, /admin/comments/**, /admin/events/**, /admin/users/**, /categories/**, /compilations/**, /events/**, /users/**, /comments/**
+            - Path=/admin/users
+            - Method=POST,GET,DELETE
+          filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+            - StripPrefix=0
+
+        - id: main-service-admin-events
+          uri: lb://main-service
+          predicates:
+            - Path=/admin/events/**
+          filters:
+            - StripPrefix=0
+
+        - id: main-service-admin-categories
+          uri: lb://main-service
+          predicates:
+            - Path=/admin/categories/**
+          filters:
+            - StripPrefix=0
+
+        - id: main-service-admin-compilations
+          uri: lb://main-service
+          predicates:
+            - Path=/admin/compilations/**
+          filters:
+            - StripPrefix=0
+
+        - id: main-service-users
+          uri: lb://main-service
+          predicates:
+            - Path=/users/**
+          filters:
+            - StripPrefix=0
+
+        - id: main-service-events
+          uri: lb://main-service
+          predicates:
+            - Path=/events/**
+          filters:
+            - StripPrefix=0
+
+        - id: main-service-categories
+          uri: lb://main-service
+          predicates:
+            - Path=/categories/**
+          filters:
+            - StripPrefix=0
+
+        - id: main-service-compilations
+          uri: lb://main-service
+          predicates:
+            - Path=/compilations/**
+          filters:
+            - StripPrefix=0
 
         - id: stats-service
-          uri: lb://STATS-SERVER
+          uri: lb://stats-server
           predicates:
-            - Path=/stats/**, /hit/**
+            - Path=/stats/**,/hit/**
+          filters:
+            - StripPrefix=0
 
       discovery:
         locator:
-          enabled: false
+          enabled: true
           lower-case-service-id: true
+
+    loadbalancer:
+      ribbon:
+        enabled: false
 
 resilience4j:
   circuitbreaker:
     instances:
-      mainservice:
+      main-service:
         register-health-indicator: true
         sliding-window-size: 10
         minimum-number-of-calls: 5
@@ -30,12 +92,9 @@ resilience4j:
         automatic-transition-from-open-to-half-open-enabled: true
         wait-duration-in-open-state: 5s
         failure-rate-threshold: 50
-
-logging:
-  level:
-    org.springframework.cloud.gateway: DEBUG
-    org.springframework.cloud.loadbalancer: DEBUG
-    reactor.netty.http.client: DEBUG
+        ignore-exceptions:
+          - org.springframework.web.client.HttpServerErrorException
+          - java.util.concurrent.TimeoutException
 
 server:
   port: 8080
@@ -44,10 +103,29 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: health,info,gateway,metrics,prometheus
+      base-path: /actuator
       cors:
         allowed-origins: "*"
-        allowed-methods: "*"
+        allowed-methods: GET,POST,PUT,DELETE
   endpoint:
+    gateway:
+      enabled: true
     health:
       show-details: always
+      probes:
+        enabled: true
+
+info:
+  app:
+    name: ExploreWithMe Gateway
+    description: API Gateway for ExploreWithMe application
+    version: 1.0.0
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.cloud.loadbalancer: DEBUG
+    org.springframework.cloud.netflix.eureka: DEBUG
+    com.netflix.discovery: DEBUG
+    reactor.netty.http.client: DEBUG
