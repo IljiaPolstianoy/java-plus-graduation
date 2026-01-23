@@ -1,6 +1,0 @@
-spring:
-  application:
-    name: stats-client
-
-server:
-  port: 0
