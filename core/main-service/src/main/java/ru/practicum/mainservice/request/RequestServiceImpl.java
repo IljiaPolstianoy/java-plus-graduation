@@ -4,22 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.mainservice.event.Event;
-import ru.practicum.mainservice.event.EventRepository;
-import ru.practicum.mainservice.event.enums.EventState;
-import ru.practicum.mainservice.exception.EventNotFoundException;
-import ru.practicum.mainservice.exception.EventNotPublishedException;
-import ru.practicum.mainservice.exception.ParticipantLimitExceededException;
-import ru.practicum.mainservice.exception.RequestAlreadyExistsException;
-import ru.practicum.mainservice.exception.RequestNotFoundException;
-import ru.practicum.mainservice.exception.RequestSelfAttendException;
-import ru.practicum.mainservice.exception.UserNotFoundException;
-import ru.practicum.mainservice.request.dto.ParticipationRequestDto;
-import ru.practicum.mainservice.request.dto.RequestDto;
-import ru.practicum.mainservice.request.dto.RequestStatusUpdateDto;
-import ru.practicum.mainservice.request.dto.RequestStatusUpdateResultDto;
-import ru.practicum.mainservice.user.User;
-import ru.practicum.mainservice.user.UserRepository;
+import ru.practicum.event.Event;
+import ru.practicum.event.enums.EventState;
+import ru.practicum.exception.*;
+import ru.practicum.request.Request;
+import ru.practicum.request.RequestStatus;
+import ru.practicum.request.dto.ParticipationRequestDto;
+import ru.practicum.request.dto.RequestDto;
+import ru.practicum.request.dto.RequestStatusUpdateDto;
+import ru.practicum.request.dto.RequestStatusUpdateResultDto;
+import ru.practicum.user.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -43,7 +37,7 @@ public class RequestServiceImpl implements RequestService {
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new EventNotFoundException("Event not found"));
+                .orElseThrow(() -> new EventNotFoundException("event not found"));
 
         if (requestRepository.existsByRequesterIdAndEventId(userId, eventId)) {
             throw new RequestAlreadyExistsException("Request for eventId = %d by userId = %d already exists".formatted(eventId, userId));
@@ -54,7 +48,7 @@ public class RequestServiceImpl implements RequestService {
         }
 
         if (event.getState() != EventState.PUBLISHED) {
-            throw new EventNotPublishedException("Event is not published yet");
+            throw new EventNotPublishedException("event is not published yet");
         }
 
         if (event.getParticipantLimit() != 0) {
@@ -106,7 +100,7 @@ public class RequestServiceImpl implements RequestService {
         }
 
         if (event.getState() != EventState.PUBLISHED) {
-            throw new EventNotPublishedException("Event is not published");
+            throw new EventNotPublishedException("event is not published");
         }
 
         Long confirmedCount = requestRepository.countConfirmedRequests(eventId);
@@ -176,7 +170,7 @@ public class RequestServiceImpl implements RequestService {
         log.info("Main-service. getRequestsByOwnerOfEvent input: userId = {}, eventId = {}", userId, eventId);
 
         Event event = eventRepository.findByIdAndInitiatorId(eventId, userId)
-                .orElseThrow(() -> new EventNotFoundException("Event not found for user"));
+                .orElseThrow(() -> new EventNotFoundException("event not found for user"));
 
         List<Request> requests = requestRepository.findByEventIdAndEvent_InitiatorId(eventId, userId);
 

@@ -1,15 +1,9 @@
 package ru.practicum.mainservice.request;
 
-import ru.practicum.mainservice.exception.EventNotFoundException;
-import ru.practicum.mainservice.exception.EventNotPublishedException;
-import ru.practicum.mainservice.exception.ParticipantLimitExceededException;
-import ru.practicum.mainservice.exception.RequestAlreadyExistsException;
-import ru.practicum.mainservice.exception.RequestNotFoundException;
-import ru.practicum.mainservice.exception.RequestSelfAttendException;
-import ru.practicum.mainservice.exception.UserNotFoundException;
-import ru.practicum.mainservice.request.dto.RequestDto;
-import ru.practicum.mainservice.request.dto.RequestStatusUpdateDto;
-import ru.practicum.mainservice.request.dto.RequestStatusUpdateResultDto;
+import ru.practicum.exception.*;
+import ru.practicum.request.dto.RequestDto;
+import ru.practicum.request.dto.RequestStatusUpdateDto;
+import ru.practicum.request.dto.RequestStatusUpdateResultDto;
 
 import java.util.List;
 

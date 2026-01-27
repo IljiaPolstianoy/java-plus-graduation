@@ -7,13 +7,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.mainservice.event.EventRepository;
-import ru.practicum.mainservice.exception.CategoryIsRelatedToEventException;
-import ru.practicum.mainservice.exception.CategoryNameUniqueException;
-import ru.practicum.mainservice.exception.CategoryNotFoundException;
-import ru.practicum.mainservice.exception.InvalidCategoryException;
+import ru.practicum.category.Category;
+import ru.practicum.category.CategoryDto;
+import ru.practicum.exception.CategoryIsRelatedToEventException;
+import ru.practicum.exception.CategoryNameUniqueException;
+import ru.practicum.exception.CategoryNotFoundException;
+import ru.practicum.exception.InvalidCategoryException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -108,4 +110,9 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.toDto(category);
     }
 
+    @Override
+    public Optional<Category> findById(final Long categoryId) {
+        return categoryRepository
+                .findById(categoryId);
+    }
 }

@@ -1,0 +1,16 @@
+server:
+  port: 0
+
+# Основные настройки
+spring:
+  application:
+    name: user-service
+  config:
+    activate:
+      on-profile: default
+
+# Настройки логирования
+logging:
+  level:
+    ru.practicum.stats: INFO
+    org.springframework.transaction.interceptor: TRACE
