@@ -1,4 +1,4 @@
-package ru.practicum.mainservice.category.controller;
+package ru.practicum.category.controller;
 
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.groups.Default;
@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import ru.practicum.mainservice.category.CategoryService;
-import ru.practicum.mainservice.exception.CategoryIsRelatedToEventException;
-import ru.practicum.mainservice.exception.CategoryNameUniqueException;
-import ru.practicum.mainservice.exception.CategoryNotFoundException;
-import ru.practicum.mainservice.exception.InvalidCategoryException;
-import ru.practicum.mainservice.validation.ValidationGroups;
+import ru.practicum.category.CategoryDto;
+import ru.practicum.category.CategoryService;
+import ru.practicum.exception.CategoryIsRelatedToEventException;
+import ru.practicum.exception.CategoryNameUniqueException;
+import ru.practicum.exception.CategoryNotFoundException;
+import ru.practicum.exception.InvalidCategoryException;
+import ru.practicum.validation.ValidationGroups;
 
 @RestController
 @RequestMapping(path = "/admin/categories")

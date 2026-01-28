@@ -1,7 +1,7 @@
-package ru.practicum.mainservice.category;
+package ru.practicum.category;
 
 import org.mapstruct.Mapper;
-import ru.practicum.mainservice.config.CommonMapperConfiguration;
+import ru.practicum.config.CommonMapperConfiguration;
 
 @Mapper(config = CommonMapperConfiguration.class)
 public interface CategoryMapper {

@@ -1,13 +1,13 @@
-package ru.practicum.mainservice.request;
+package ru.practicum.request;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import ru.practicum.mainservice.config.CommonMapperConfiguration;
-import ru.practicum.mainservice.event.Event;
-import ru.practicum.mainservice.request.dto.ParticipationRequestDto;
-import ru.practicum.mainservice.request.dto.RequestDto;
-import ru.practicum.mainservice.user.User;
+import ru.practicum.config.CommonMapperConfiguration;
+import ru.practicum.event.Event;
+import ru.practicum.request.dto.ParticipationRequestDto;
+import ru.practicum.request.dto.RequestDto;
+import ru.practicum.user.User;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import ru.practicum.exception.CommentNotFoundException;
 import ru.practicum.mainservice.comment.CommentService;
 import ru.practicum.mainservice.comment.dto.CommentDto;
 import ru.practicum.mainservice.comment.dto.CommentDtoStatus;
-import ru.practicum.mainservice.exception.CommentNotFoundException;
 
 @RestController
 @RequestMapping("/admin/comments")

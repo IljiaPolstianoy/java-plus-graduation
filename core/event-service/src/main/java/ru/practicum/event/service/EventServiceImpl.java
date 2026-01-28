@@ -36,6 +36,7 @@ import ru.practicum.user.User;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -371,6 +372,21 @@ public class EventServiceImpl implements EventService {
         enrichEventWithAdditionalData(eventDto);
 
         return eventDto;
+    }
+
+    @Override
+    public Optional<Event> findById(final Long eventId) {
+        return eventRepository.findById(eventId);
+    }
+
+    @Override
+    public Optional<Event> findByIdAndInitiatorId(final Long eventId, final Long userId) {
+        return eventRepository.findByIdAndInitiatorId(eventId, userId);
+    }
+
+    @Override
+    public boolean existsByCategoryId(final Long categoryId) {
+        return eventRepository.existsByCategoryId(categoryId);
     }
 
     private void enrichEventWithAdditionalData(EventDtoFull event) {

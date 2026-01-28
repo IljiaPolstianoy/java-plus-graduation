@@ -1,4 +1,4 @@
-package ru.practicum.mainservice.category;
+package ru.practicum.category;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,8 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.category.Category;
-import ru.practicum.category.CategoryDto;
+import ru.practicum.category.feign.EventRepository;
 import ru.practicum.exception.CategoryIsRelatedToEventException;
 import ru.practicum.exception.CategoryNameUniqueException;
 import ru.practicum.exception.CategoryNotFoundException;

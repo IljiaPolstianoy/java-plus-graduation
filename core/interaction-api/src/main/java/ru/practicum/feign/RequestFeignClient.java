@@ -17,7 +17,7 @@ import ru.practicum.request.dto.RequestStatusUpdateResultDto;
 import java.util.List;
 
 @FeignClient(
-        name = "main-service",
+        name = "request-service",
         contextId = "requestFeign",
         path = "/internal/request"
 )

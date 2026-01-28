@@ -1,12 +1,13 @@
-package ru.practicum.mainservice.category.controller;
+package ru.practicum.category.controller;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.practicum.category.Category;
-import ru.practicum.mainservice.category.CategoryService;
+import ru.practicum.category.CategoryService;
 
 import java.util.Optional;
 

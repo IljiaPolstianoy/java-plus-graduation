@@ -1,11 +1,9 @@
-package ru.practicum.mainservice.category;
+package ru.practicum.category;
 
-import ru.practicum.category.Category;
-import ru.practicum.category.CategoryDto;
-import ru.practicum.mainservice.exception.CategoryIsRelatedToEventException;
-import ru.practicum.mainservice.exception.CategoryNameUniqueException;
-import ru.practicum.mainservice.exception.CategoryNotFoundException;
-import ru.practicum.mainservice.exception.InvalidCategoryException;
+import ru.practicum.exception.CategoryIsRelatedToEventException;
+import ru.practicum.exception.CategoryNameUniqueException;
+import ru.practicum.exception.CategoryNotFoundException;
+import ru.practicum.exception.InvalidCategoryException;
 
 import java.util.List;
 import java.util.Optional;

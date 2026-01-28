@@ -1,4 +1,4 @@
-package ru.practicum.mainservice.category.controller;
+package ru.practicum.category.controller;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.practicum.mainservice.category.CategoryService;
-import ru.practicum.mainservice.exception.CategoryNotFoundException;
+import ru.practicum.category.CategoryDto;
+import ru.practicum.category.CategoryService;
+import ru.practicum.exception.CategoryNotFoundException;
 
 import java.util.List;
 

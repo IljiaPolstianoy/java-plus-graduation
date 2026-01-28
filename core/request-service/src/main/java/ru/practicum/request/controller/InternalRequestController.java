@@ -1,4 +1,4 @@
-package ru.practicum.mainservice.request.controller;
+package ru.practicum.request.controller;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.mainservice.request.RequestService;
+import ru.practicum.request.RequestService;
 import ru.practicum.request.dto.ConfirmedRequestsCount;
 import ru.practicum.request.dto.RequestDto;
 import ru.practicum.request.dto.RequestStatusUpdateDto;

@@ -1,6 +1,7 @@
 package ru.practicum.event.service;
 
 import jakarta.servlet.http.HttpServletRequest;
+import ru.practicum.event.Event;
 import ru.practicum.event.dto.EventDto;
 import ru.practicum.event.dto.EventDtoFull;
 import ru.practicum.event.dto.EventFilterAdmin;
@@ -8,6 +9,7 @@ import ru.practicum.event.dto.EventFilterPublic;
 import ru.practicum.exception.*;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EventService {
     // Admin
@@ -29,4 +31,9 @@ public interface EventService {
 
     EventDtoFull findEventById(Long eventId, HttpServletRequest request) throws EventNotFoundException;
 
+    Optional<Event> findById(Long eventId);
+
+    Optional<Event> findByIdAndInitiatorId(Long eventId, Long userId);
+
+    boolean existsByCategoryId(Long categoryId);
 }

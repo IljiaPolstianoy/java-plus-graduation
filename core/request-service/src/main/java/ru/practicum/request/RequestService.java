@@ -1,4 +1,4 @@
-package ru.practicum.mainservice.request;
+package ru.practicum.request;
 
 import ru.practicum.exception.*;
 import ru.practicum.request.dto.ConfirmedRequestsCount;

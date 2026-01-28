@@ -1,4 +1,4 @@
-package ru.practicum.mainservice.request;
+package ru.practicum.request;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,9 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.event.Event;
 import ru.practicum.event.enums.EventState;
 import ru.practicum.exception.*;
-import ru.practicum.request.Request;
-import ru.practicum.request.RequestStatus;
 import ru.practicum.request.dto.*;
+import ru.practicum.request.feign.EventRepository;
+import ru.practicum.request.feign.UserRepository;
 import ru.practicum.user.User;
 
 import java.time.LocalDateTime;
