@@ -2,6 +2,7 @@ package ru.practicum.event;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -9,7 +10,10 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableFeignClients(basePackages = "ru.practicum.feign")
 @ComponentScan(basePackages = {
         "ru.practicum.stats",
-        "ru.practicum.event"
+        "ru.practicum.event",
+})
+@EntityScan(basePackages = {
+        "ru.practicum"
 })
 public class EventApplication {
     public static void main(String[] args) {

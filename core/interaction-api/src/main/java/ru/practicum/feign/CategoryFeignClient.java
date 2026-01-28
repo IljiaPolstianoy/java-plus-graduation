@@ -8,7 +8,11 @@ import ru.practicum.category.Category;
 
 import java.util.Optional;
 
-@FeignClient(name = "main-service", path = "/internal/category")
+@FeignClient(
+        name = "main-service",
+        contextId = "categoryFeign",
+        path = "/internal/category"
+)
 public interface CategoryFeignClient {
 
     @GetMapping("/{categoryId}")

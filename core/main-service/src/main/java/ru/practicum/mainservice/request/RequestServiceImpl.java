@@ -9,10 +9,7 @@ import ru.practicum.event.enums.EventState;
 import ru.practicum.exception.*;
 import ru.practicum.request.Request;
 import ru.practicum.request.RequestStatus;
-import ru.practicum.request.dto.ParticipationRequestDto;
-import ru.practicum.request.dto.RequestDto;
-import ru.practicum.request.dto.RequestStatusUpdateDto;
-import ru.practicum.request.dto.RequestStatusUpdateResultDto;
+import ru.practicum.request.dto.*;
 import ru.practicum.user.User;
 
 import java.time.LocalDateTime;
@@ -179,4 +176,13 @@ public class RequestServiceImpl implements RequestService {
         return requestMapper.toDtoList(requests);
     }
 
+    @Override
+    public List<ConfirmedRequestsCount> findConfirmedRequestsCountByEventIds(final List<Long> eventIds) {
+        return requestRepository.findConfirmedRequestsCountByEventIds(eventIds);
+    }
+
+    @Override
+    public Long countConfirmedRequests(final Long eventId) {
+        return requestRepository.countConfirmedRequests(eventId);
+    }
 }

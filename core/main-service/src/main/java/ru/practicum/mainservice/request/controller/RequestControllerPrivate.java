@@ -12,16 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import ru.practicum.mainservice.exception.EventNotFoundException;
-import ru.practicum.mainservice.exception.EventNotPublishedException;
-import ru.practicum.mainservice.exception.ParticipantLimitExceededException;
-import ru.practicum.mainservice.exception.RequestAlreadyExistsException;
-import ru.practicum.mainservice.exception.RequestNotFoundException;
-import ru.practicum.mainservice.exception.RequestSelfAttendException;
-import ru.practicum.mainservice.exception.UserNotFoundException;
+import ru.practicum.exception.*;
 import ru.practicum.mainservice.request.RequestService;
-import ru.practicum.mainservice.request.dto.RequestDto;
-import ru.practicum.stats.ClientRestStat;
+import ru.practicum.request.dto.RequestDto;
 
 import java.util.List;
 
@@ -48,7 +41,4 @@ public class RequestControllerPrivate {
     public RequestDto cancelParticipationRequest(@PathVariable @Positive Long userId, @PathVariable @Positive Long requestId) throws RequestNotFoundException {
         return requestService.cancelRequests(userId, requestId);
     }
-
-    @GetMapping("/event/{eventId}")
-    public List<RequestDto> getRequestsByOwnerOfEvent
 }

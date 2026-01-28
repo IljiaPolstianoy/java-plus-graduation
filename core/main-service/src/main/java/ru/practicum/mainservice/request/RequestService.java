@@ -1,6 +1,7 @@
 package ru.practicum.mainservice.request;
 
 import ru.practicum.exception.*;
+import ru.practicum.request.dto.ConfirmedRequestsCount;
 import ru.practicum.request.dto.RequestDto;
 import ru.practicum.request.dto.RequestStatusUpdateDto;
 import ru.practicum.request.dto.RequestStatusUpdateResultDto;
@@ -18,5 +19,9 @@ public interface RequestService {
     List<RequestDto> getCurrentUserRequests(Long userId) throws UserNotFoundException;
 
     RequestDto cancelRequests(Long userId, Long requestId) throws RequestNotFoundException;
+
+    List<ConfirmedRequestsCount> findConfirmedRequestsCountByEventIds(List<Long> requestId);
+
+    Long countConfirmedRequests(Long eventId);
 
 }

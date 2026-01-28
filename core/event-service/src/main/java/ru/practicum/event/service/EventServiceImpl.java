@@ -22,6 +22,8 @@ import ru.practicum.event.dto.*;
 import ru.practicum.event.enums.EventState;
 import ru.practicum.event.enums.EventStateAction;
 import ru.practicum.event.feign.CategoryRepository;
+import ru.practicum.event.feign.LocationRepository;
+import ru.practicum.event.feign.RequestService;
 import ru.practicum.event.feign.UserRepository;
 import ru.practicum.exception.*;
 import ru.practicum.location.Location;
@@ -49,7 +51,7 @@ public class EventServiceImpl implements EventService {
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final LocationRepository locationRepository;
-    private final RequestRepository requestRepository;
+    private final RequestService requestRepository;
 
     private void validateFilter(EventFilterBase filter) throws FilterValidationException, EventDateException {
 

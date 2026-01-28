@@ -13,7 +13,7 @@
     <name>event-service</name>
     <description>event-service</description>
     <packaging>jar</packaging>
-    
+
     <dependencies>
         <dependency>
             <groupId>ru.practicum</groupId>
@@ -88,6 +88,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
