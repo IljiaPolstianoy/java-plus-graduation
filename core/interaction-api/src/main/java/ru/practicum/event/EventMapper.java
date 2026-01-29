@@ -7,7 +7,6 @@ import org.mapstruct.Named;
 import ru.practicum.category.Category;
 import ru.practicum.category.CategoryDto;
 import ru.practicum.config.CommonMapperConfiguration;
-import ru.practicum.event.Event;
 import ru.practicum.event.dto.EventDto;
 import ru.practicum.event.dto.EventDtoFull;
 import ru.practicum.location.Location;

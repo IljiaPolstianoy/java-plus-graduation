@@ -2,9 +2,9 @@ package ru.practicum.mainservice.comment;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import ru.practicum.config.CommonMapperConfiguration;
 import ru.practicum.mainservice.comment.dto.CommentDto;
 import ru.practicum.mainservice.comment.dto.CommentDtoShort;
-import ru.practicum.mainservice.config.CommonMapperConfiguration;
 
 @Mapper(config = CommonMapperConfiguration.class)
 public interface CommentMapper {

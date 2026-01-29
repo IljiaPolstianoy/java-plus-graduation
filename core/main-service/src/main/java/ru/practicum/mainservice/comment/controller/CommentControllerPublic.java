@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.practicum.exception.EventNotFoundException;
 import ru.practicum.mainservice.comment.CommentService;
 import ru.practicum.mainservice.comment.dto.CommentDtoShort;
-import ru.practicum.mainservice.exception.EventNotFoundException;
 
 import java.util.List;
 

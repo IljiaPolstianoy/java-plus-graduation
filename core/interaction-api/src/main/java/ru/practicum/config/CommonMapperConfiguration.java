@@ -1,11 +1,7 @@
 package ru.practicum.config;
 
 
-import org.mapstruct.CollectionMappingStrategy;
-import org.mapstruct.InjectionStrategy;
-import org.mapstruct.MapperConfig;
-import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 @MapperConfig(
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,

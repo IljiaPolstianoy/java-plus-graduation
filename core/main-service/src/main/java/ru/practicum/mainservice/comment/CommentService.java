@@ -1,13 +1,13 @@
 package ru.practicum.mainservice.comment;
 
 import org.springframework.data.domain.Pageable;
+import ru.practicum.exception.CommentNotFoundException;
+import ru.practicum.exception.EventNotFoundException;
+import ru.practicum.exception.UserNotFoundException;
 import ru.practicum.mainservice.comment.dto.CommentDto;
 import ru.practicum.mainservice.comment.dto.CommentDtoReq;
 import ru.practicum.mainservice.comment.dto.CommentDtoShort;
 import ru.practicum.mainservice.comment.dto.CommentDtoStatus;
-import ru.practicum.mainservice.exception.CommentNotFoundException;
-import ru.practicum.mainservice.exception.EventNotFoundException;
-import ru.practicum.mainservice.exception.UserNotFoundException;
 
 import java.util.List;
 

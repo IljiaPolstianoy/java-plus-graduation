@@ -1,15 +1,21 @@
 package ru.practicum.event.controller;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.practicum.event.Event;
+import ru.practicum.event.RequestAllByInitiatorIds;
+import ru.practicum.event.RequestAllEvent;
 import ru.practicum.event.service.EventService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -36,5 +42,22 @@ public class InternalEventController {
     @GetMapping("/exists/{categoryId}")
     public boolean existsByCategoryId(final @PathVariable @NotNull Long categoryId) {
         return eventService.existsByCategoryId(categoryId);
+    }
+
+    @GetMapping("/{eventId}/exists")
+    public boolean existsById(@PathVariable @NotNull final Long eventId) {
+        return eventService.existsById(eventId);
+    }
+
+    @GetMapping("/all")
+    public List<Event> findAllById(final @RequestBody RequestAllEvent requestAllEvent) {
+        return eventService.findAllById(requestAllEvent);
+    }
+
+    @GetMapping("/all/initiator")
+    public Page<Event> findAllByInitiatorIdIn(
+            final @RequestBody @Valid RequestAllByInitiatorIds requestAllByInitiatorIds
+    ) {
+        return eventService.findAllByInitiatorIdIn(requestAllByInitiatorIds);
     }
 }

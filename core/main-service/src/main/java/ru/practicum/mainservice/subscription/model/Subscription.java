@@ -2,7 +2,7 @@ package ru.practicum.mainservice.subscription.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ru.practicum.mainservice.user.User;
+import ru.practicum.user.User;
 
 @Entity
 @Table(name = "subscriptions")

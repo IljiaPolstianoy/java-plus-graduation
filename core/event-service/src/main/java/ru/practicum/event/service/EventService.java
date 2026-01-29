@@ -1,7 +1,10 @@
 package ru.practicum.event.service;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.data.domain.Page;
 import ru.practicum.event.Event;
+import ru.practicum.event.RequestAllByInitiatorIds;
+import ru.practicum.event.RequestAllEvent;
 import ru.practicum.event.dto.EventDto;
 import ru.practicum.event.dto.EventDtoFull;
 import ru.practicum.event.dto.EventFilterAdmin;
@@ -36,4 +39,10 @@ public interface EventService {
     Optional<Event> findByIdAndInitiatorId(Long eventId, Long userId);
 
     boolean existsByCategoryId(Long categoryId);
+
+    boolean existsById(Long eventId);
+
+    List<Event> findAllById(RequestAllEvent requestAllEvent);
+
+    Page<Event> findAllByInitiatorIdIn(RequestAllByInitiatorIds requestAllByInitiatorIds);
 }

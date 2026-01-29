@@ -1,6 +1,6 @@
 package ru.practicum.mainservice.subscription.model;
 
-import ru.practicum.mainservice.user.User;
+import ru.practicum.user.User;
 
 public interface SubscriptionDtoProjection {
     User getSubscription();

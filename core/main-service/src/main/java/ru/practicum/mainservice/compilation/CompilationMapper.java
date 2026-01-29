@@ -3,10 +3,11 @@ package ru.practicum.mainservice.compilation;
 import org.mapstruct.BeforeMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import ru.practicum.mainservice.compilation.dto.CompilationCreateDto;
-import ru.practicum.mainservice.compilation.dto.CompilationDto;
-import ru.practicum.mainservice.config.CommonMapperConfiguration;
-import ru.practicum.mainservice.event.EventMapper;
+import ru.practicum.compilation.Compilation;
+import ru.practicum.compilation.dto.CompilationCreateDto;
+import ru.practicum.compilation.dto.CompilationDto;
+import ru.practicum.config.CommonMapperConfiguration;
+import ru.practicum.event.EventMapper;
 
 import java.util.HashSet;
 import java.util.List;

@@ -10,9 +10,14 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "ru.practicum.mainservice")
-@EntityScan(basePackages = "ru.practicum.mainservice")
-@ComponentScan(basePackages = {"ru.practicum.mainservice", "ru.practicum.stats", "ru.practicum.exception"})
-@EnableFeignClients
+@EntityScan(basePackages = "ru.practicum")
+@ComponentScan(basePackages = {
+        "ru.practicum.mainservice",
+        "ru.practicum.stats",
+        "ru.practicum.exception",
+        "ru.practicum.event"
+})
+@EnableFeignClients(basePackages = "ru.practicum.feign")
 public class MainServiceApplication {
 
     public static void main(final String[] args) {

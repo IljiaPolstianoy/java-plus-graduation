@@ -14,18 +14,15 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import ru.practicum.category.Category;
-import ru.practicum.event.Event;
-import ru.practicum.event.EventMapper;
-import ru.practicum.event.EventRepository;
-import ru.practicum.event.EventSpecifications;
+import ru.practicum.event.*;
 import ru.practicum.event.dto.*;
+import ru.practicum.exception.*;
 import ru.practicum.event.enums.EventState;
 import ru.practicum.event.enums.EventStateAction;
 import ru.practicum.event.feign.CategoryRepository;
 import ru.practicum.event.feign.LocationRepository;
 import ru.practicum.event.feign.RequestService;
 import ru.practicum.event.feign.UserRepository;
-import ru.practicum.exception.*;
 import ru.practicum.location.Location;
 import ru.practicum.request.dto.ConfirmedRequestsCount;
 import ru.practicum.stats.ClientRestStat;
@@ -387,6 +384,24 @@ public class EventServiceImpl implements EventService {
     @Override
     public boolean existsByCategoryId(final Long categoryId) {
         return eventRepository.existsByCategoryId(categoryId);
+    }
+
+    @Override
+    public boolean existsById(final Long eventId) {
+        return eventRepository.existsById(eventId);
+    }
+
+    @Override
+    public List<Event> findAllById(final RequestAllEvent requestAllEvent) {
+        return eventRepository.findAllById(requestAllEvent.getIds());
+    }
+
+    @Override
+    public Page<Event> findAllByInitiatorIdIn(final RequestAllByInitiatorIds requestAllByInitiatorIds) {
+        return eventRepository.findAllByInitiatorIdIn(
+                requestAllByInitiatorIds.getUserId(),
+                requestAllByInitiatorIds.getPageable()
+        );
     }
 
     private void enrichEventWithAdditionalData(EventDtoFull event) {

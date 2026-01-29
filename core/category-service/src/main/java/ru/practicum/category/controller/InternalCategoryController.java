@@ -1,6 +1,5 @@
 package ru.practicum.category.controller;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

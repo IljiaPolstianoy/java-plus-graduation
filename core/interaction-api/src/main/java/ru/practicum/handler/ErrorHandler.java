@@ -1,4 +1,4 @@
-package ru.practicum.mainservice.handler;
+package ru.practicum.handler;
 
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -10,22 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-import ru.practicum.mainservice.exception.CategoryIsRelatedToEventException;
-import ru.practicum.mainservice.exception.CategoryNameUniqueException;
-import ru.practicum.mainservice.exception.CategoryNotFoundException;
-import ru.practicum.mainservice.exception.CommentNotFoundException;
-import ru.practicum.mainservice.exception.CompilationNotFoundException;
-import ru.practicum.mainservice.exception.EventAlreadyPublishedException;
-import ru.practicum.mainservice.exception.EventCanceledCantPublishException;
-import ru.practicum.mainservice.exception.EventDateException;
-import ru.practicum.mainservice.exception.EventNotFoundException;
-import ru.practicum.mainservice.exception.EventNotPublishedException;
-import ru.practicum.mainservice.exception.EventValidationException;
-import ru.practicum.mainservice.exception.FilterValidationException;
-import ru.practicum.mainservice.exception.ParticipantLimitExceededException;
-import ru.practicum.mainservice.exception.RequestAlreadyExistsException;
-import ru.practicum.mainservice.exception.RequestSelfAttendException;
-import ru.practicum.mainservice.exception.UserAlreadyExistsException;
+import ru.practicum.exception.*;
 import ru.practicum.stats.ErrorResponseDto;
 
 import java.io.PrintWriter;
