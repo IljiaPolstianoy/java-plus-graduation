@@ -30,11 +30,9 @@ public class RequestServiceImpl implements RequestService {
     public RequestDto createRequest(Long userId, Long eventId) throws UserNotFoundException, EventNotFoundException, RequestAlreadyExistsException, ParticipantLimitExceededException, RequestSelfAttendException, EventNotPublishedException {
         log.info("Main-service. createRequest input: userId = {}, eventId = {}", userId, eventId);
 
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        User user = userRepository.findById(userId);
 
-        Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new EventNotFoundException("event not found"));
+        Event event = eventRepository.findById(eventId);
 
         if (requestRepository.existsByRequesterIdAndEventId(userId, eventId)) {
             throw new RequestAlreadyExistsException("Request for eventId = %d by userId = %d already exists".formatted(eventId, userId));
@@ -89,8 +87,7 @@ public class RequestServiceImpl implements RequestService {
         //        если при подтверждении данной заявки, лимит заявок для события исчерпан, то все неподтверждённые заявки необходимо отклонить
         log.info("Main-service. updateRequests input: userId = {}, eventId = {}, RequestStatusUpdateDto = {}", userId, eventId, requestStatusUpdateDto);
 
-        Event event = eventRepository.findByIdAndInitiatorId(eventId, userId)
-                .orElseThrow(() -> new EventNotFoundException("EventId = %d by userId = %d".formatted(eventId, userId)));
+        Event event = eventRepository.findByIdAndInitiatorId(eventId, userId);
 
         if (!event.getRequestModeration() && requestStatusUpdateDto == null) {
             return new RequestStatusUpdateResultDto();
@@ -152,8 +149,7 @@ public class RequestServiceImpl implements RequestService {
     public List<RequestDto> getCurrentUserRequests(Long userId) throws UserNotFoundException {
         log.info("Main-service. getCurrentUserRequests input: userId = {}", userId);
 
-        userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        userRepository.findById(userId);
 
         List<Request> requests = requestRepository.findByRequesterId(userId);
 
@@ -166,8 +162,7 @@ public class RequestServiceImpl implements RequestService {
     public List<RequestDto> getRequestsByOwnerOfEvent(Long userId, Long eventId) throws EventNotFoundException {
         log.info("Main-service. getRequestsByOwnerOfEvent input: userId = {}, eventId = {}", userId, eventId);
 
-        Event event = eventRepository.findByIdAndInitiatorId(eventId, userId)
-                .orElseThrow(() -> new EventNotFoundException("event not found for user"));
+        Event event = eventRepository.findByIdAndInitiatorId(eventId, userId);
 
         List<Request> requests = requestRepository.findByEventIdAndEvent_InitiatorId(eventId, userId);
 

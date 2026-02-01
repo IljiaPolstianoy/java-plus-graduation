@@ -71,6 +71,8 @@ public class CategoryServiceImpl implements CategoryService {
     public boolean deleteCategory(Long catId) throws CategoryIsRelatedToEventException {
         log.info("Main-service. deleteCategory input: id = {}", catId);
 
+        boolean result = categoryRepository.existsById(catId);
+
         if (eventRepository.existsByCategoryId(catId)) {
             throw new CategoryIsRelatedToEventException("Category is related to event");
         }

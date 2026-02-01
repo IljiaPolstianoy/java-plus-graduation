@@ -38,14 +38,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
         Subscription subscriptionSave = new Subscription();
 
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new UserNotFoundException("User with id " + userId + " not found")
-        );
+        User user = userRepository.findById(userId);
         subscriptionSave.setUser(user);
 
-        User subscription = userRepository.findById(subscriptionId).orElseThrow(
-                () -> new UserNotFoundException("User with id " + subscriptionId + " not found")
-        );
+        User subscription = userRepository.findById(subscriptionId);
         subscriptionSave.setSubscription(subscription);
 
         return subscriptionRepository.save(subscriptionSave);

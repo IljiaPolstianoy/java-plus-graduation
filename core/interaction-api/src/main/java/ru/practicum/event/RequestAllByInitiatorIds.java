@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RequestAllByInitiatorIds {
 
-    private final List<Long> userId;
+    private final List<Long> userIds;
 
     @NotNull
     private final Pageable pageable;

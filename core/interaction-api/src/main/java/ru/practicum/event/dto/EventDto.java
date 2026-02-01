@@ -1,5 +1,6 @@
 package ru.practicum.event.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import ru.practicum.event.enums.EventStateAction;
@@ -34,6 +35,7 @@ public class EventDto {
     private String description;
 
     @NotNull(groups = ValidationGroups.Create.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime eventDate;
 
     private Long initiator;

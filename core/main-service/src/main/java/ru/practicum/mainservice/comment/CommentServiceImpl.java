@@ -71,8 +71,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentDto> findUserComments(Long userId, Pageable pageable) throws UserNotFoundException {
         log.info("Main-service. findUserComments userId = {}", userId);
-        User author = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("Пользователь не найден с ID %d".formatted(userId)));
+        User author = userRepository.findById(userId);
 
         Page<Comment> comments = commentRepository.findByAuthor_Id(userId, pageable);
 
@@ -87,10 +86,8 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public CommentDto createComment(Long userId, Long eventId, CommentDto commentDto) throws UserNotFoundException, EventNotFoundException {
         log.info("Main-service. createComment userId = {}, eventId = {}", userId, eventId);
-        User author = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("Пользователь не найден с ID %d".formatted(userId)));
-        Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new EventNotFoundException("Событие не найдено с ID %d".formatted(eventId)));
+        User author = userRepository.findById(userId);
+        Event event = eventRepository.findById(eventId);
         Comment comment = commentMapper.toEntity(commentDto);
         comment.setAuthor(author);
         comment.setEvent(event);

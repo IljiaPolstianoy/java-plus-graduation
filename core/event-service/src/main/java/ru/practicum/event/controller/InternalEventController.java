@@ -1,24 +1,22 @@
 package ru.practicum.event.controller;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Controller;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.practicum.event.Event;
-import ru.practicum.event.RequestAllByInitiatorIds;
-import ru.practicum.event.RequestAllEvent;
 import ru.practicum.event.service.EventService;
+import ru.practicum.exception.CategoryIsRelatedToEventException;
+import ru.practicum.exception.EventNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
-@Controller
+@RestController
 @RequestMapping("/internal/event")
 @RequiredArgsConstructor
 @Validated
@@ -27,16 +25,18 @@ public class InternalEventController {
     private final EventService eventService;
 
     @GetMapping("/{eventId}")
-    public Optional<Event> findById(@PathVariable @NotNull final Long eventId) {
-        return eventService.findById(eventId);
+    public Event findById(@PathVariable @NotNull final Long eventId) {
+        return eventService.findById(eventId)
+                .orElseThrow(() -> new EventNotFoundException("Событие не найдено с ID %d".formatted(eventId)));
     }
 
     @GetMapping("/{eventId}/user/{userId}")
-    public Optional<Event> findByIdAndInitiatorId(
+    public Event findByIdAndInitiatorId(
             @PathVariable @NotNull final Long eventId,
             @PathVariable @NotNull final Long userId
     ) {
-        return eventService.findByIdAndInitiatorId(eventId, userId);
+        return eventService.findByIdAndInitiatorId(eventId, userId)
+                .orElseThrow(() -> new EventNotFoundException("EventId = %d by userId = %d".formatted(eventId, userId)));
     }
 
     @GetMapping("/exists/{categoryId}")
@@ -50,14 +50,21 @@ public class InternalEventController {
     }
 
     @GetMapping("/all")
-    public List<Event> findAllById(final @RequestBody RequestAllEvent requestAllEvent) {
-        return eventService.findAllById(requestAllEvent);
+    public List<Event> findAllById(final @RequestParam("ids") Set<Long> ids) {
+        return eventService.findAllById(ids);
     }
 
     @GetMapping("/all/initiator")
     public Page<Event> findAllByInitiatorIdIn(
-            final @RequestBody @Valid RequestAllByInitiatorIds requestAllByInitiatorIds
+            final @RequestParam("ids") List<Long> userIds, Pageable pageable
     ) {
-        return eventService.findAllByInitiatorIdIn(requestAllByInitiatorIds);
+        return eventService.findAllByInitiatorIdIn(userIds, pageable);
+    }
+
+
+    @DeleteMapping(path = "/{eventId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteEvent(final @PathVariable @Positive Long eventId) throws CategoryIsRelatedToEventException {
+        eventService.delete(eventId);
     }
 }

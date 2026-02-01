@@ -5,7 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import ru.practicum.exception.handler.ErrorHandlerConfig;
 
 
 @SpringBootApplication
@@ -18,6 +20,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         "ru.practicum.event"
 })
 @EnableFeignClients(basePackages = "ru.practicum.feign")
+@Import(ErrorHandlerConfig.class)
 public class MainServiceApplication {
 
     public static void main(final String[] args) {

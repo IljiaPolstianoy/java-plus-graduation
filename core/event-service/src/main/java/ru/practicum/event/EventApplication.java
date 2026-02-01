@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
+import ru.practicum.exception.handler.ErrorHandlerConfig;
 
 @SpringBootApplication
 @EnableFeignClients(basePackages = "ru.practicum.feign")
@@ -15,6 +17,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EntityScan(basePackages = {
         "ru.practicum"
 })
+@Import(ErrorHandlerConfig.class)
 public class EventApplication {
     public static void main(String[] args) {
         SpringApplication.run(EventApplication.class, args);

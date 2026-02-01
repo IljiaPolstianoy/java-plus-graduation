@@ -1,5 +1,6 @@
-package ru.practicum.handler;
+package ru.practicum.exception.handler;
 
+import feign.FeignException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -54,9 +55,12 @@ public class ErrorHandler {
         return new ErrorResponseDto("Validation failed", "VALIDATION_ERROR", errors);
     }
 
-    @ExceptionHandler({EventDateException.class,
+    @ExceptionHandler({
+            EventDateException.class,
             MissingServletRequestParameterException.class,
-            FilterValidationException.class})
+            FilterValidationException.class,
+            InvalidCategoryException.class
+    })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponseDto errorHandlerIncorrectDataExceptions(final Exception ex, final WebRequest request) {
 
@@ -69,10 +73,13 @@ public class ErrorHandler {
         return new ErrorResponseDto("Input data is incorrect", "BAD_REQUEST", details);
     }
 
-    @ExceptionHandler({CategoryNotFoundException.class,
+    @ExceptionHandler({
+            CategoryNotFoundException.class,
             EventNotFoundException.class,
             CompilationNotFoundException.class,
-            CommentNotFoundException.class})
+            CommentNotFoundException.class,
+            RequestNotFoundException.class
+    })
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponseDto errorHandlerNotFound(final Exception ex, final WebRequest request) {
 
@@ -85,7 +92,8 @@ public class ErrorHandler {
         return new ErrorResponseDto("Entity not found", "NOT_FOUND", details);
     }
 
-    @ExceptionHandler({CategoryNameUniqueException.class,
+    @ExceptionHandler({
+            CategoryNameUniqueException.class,
             EventValidationException.class,
             UserAlreadyExistsException.class,
             CategoryIsRelatedToEventException.class,
@@ -94,7 +102,9 @@ public class ErrorHandler {
             RequestSelfAttendException.class,
             EventNotPublishedException.class,
             ParticipantLimitExceededException.class,
-            RequestAlreadyExistsException.class})
+            RequestAlreadyExistsException.class,
+            FeignException.Conflict.class
+    })
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponseDto errorHandlerConflictExceptions(final Exception ex, final WebRequest request) {
 

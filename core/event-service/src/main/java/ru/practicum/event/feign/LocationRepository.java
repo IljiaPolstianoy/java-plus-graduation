@@ -6,7 +6,6 @@ import ru.practicum.feign.LocationFeignClient;
 import ru.practicum.location.Location;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -14,7 +13,7 @@ public class LocationRepository {
 
     private final LocationFeignClient locationFeignClient;
 
-    public Optional<Location> findByLatAndLon(final BigDecimal lat, final BigDecimal lon) {
+    public Location findByLatAndLon(final BigDecimal lat, final BigDecimal lon) {
         return locationFeignClient.getLocation(lat, lon);
     }
 

@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.request.RequestService;
@@ -15,7 +14,7 @@ import ru.practicum.request.dto.RequestStatusUpdateResultDto;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/internal/request")
 @RequiredArgsConstructor
 @Validated
@@ -31,7 +30,7 @@ public class InternalRequestController {
         return requestService.getRequestsByOwnerOfEvent(userId, eventId);
     }
 
-    @PatchMapping("/user/{userId}/event/{eventId}")
+    @PostMapping("/user/{userId}/event/{eventId}")
     public RequestStatusUpdateResultDto updateRequest(
             @PathVariable @Positive final Long userId,
             @PathVariable @Positive final Long eventId,
@@ -40,15 +39,15 @@ public class InternalRequestController {
         return requestService.updateRequests(userId, eventId, requestStatusUpdateDto);
     }
 
-    @GetMapping("/confirmeds")
+    @PostMapping("/confirmeds")
     public List<ConfirmedRequestsCount> findConfirmedRequestsCountByEventIds(
-            final @NotEmpty List<Long> eventIds
+            final @NotEmpty @RequestBody List<Long> eventIds
     ) {
         return requestService.findConfirmedRequestsCountByEventIds(eventIds);
     }
 
-    @GetMapping("/confirmed")
-    public Long countConfirmedRequests(final @NotNull Long eventId) {
+    @PostMapping("/confirmed")
+    public Long countConfirmedRequests(final @NotNull @RequestBody Long eventId) {
         return requestService.countConfirmedRequests(eventId);
     }
 }

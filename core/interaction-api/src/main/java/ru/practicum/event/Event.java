@@ -1,5 +1,6 @@
 package ru.practicum.event;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import ru.practicum.category.Category;
@@ -36,6 +37,7 @@ public class Event {
     private LocalDateTime createdOn;
 
     private String description;
+
     private LocalDateTime eventDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -64,5 +66,6 @@ public class Event {
     private Long views;
 
     @ManyToMany(mappedBy = "events")
+    @JsonIgnore
     private Set<Compilation> compilations;
 }

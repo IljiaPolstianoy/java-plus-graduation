@@ -2,9 +2,8 @@ package ru.practicum.event.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.practicum.event.Event;
-import ru.practicum.event.RequestAllByInitiatorIds;
-import ru.practicum.event.RequestAllEvent;
 import ru.practicum.event.dto.EventDto;
 import ru.practicum.event.dto.EventDtoFull;
 import ru.practicum.event.dto.EventFilterAdmin;
@@ -13,6 +12,7 @@ import ru.practicum.exception.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface EventService {
     // Admin
@@ -42,7 +42,9 @@ public interface EventService {
 
     boolean existsById(Long eventId);
 
-    List<Event> findAllById(RequestAllEvent requestAllEvent);
+    List<Event> findAllById(Set<Long> ids);
 
-    Page<Event> findAllByInitiatorIdIn(RequestAllByInitiatorIds requestAllByInitiatorIds);
+    Page<Event> findAllByInitiatorIdIn(List<Long> ids, Pageable pageable);
+
+    void delete(Long eventId);
 }

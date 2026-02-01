@@ -1,5 +1,6 @@
 package ru.practicum.mainservice.compilation;
 
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -17,9 +18,9 @@ import ru.practicum.exception.CompilationNotFoundException;
 import ru.practicum.mainservice.feign.EventRepository;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,7 @@ public class CompilationServiceImpl implements CompilationService {
     private final CompilationRepository compilationRepository;
     private final CompilationMapper compilationMapper;
     private final EventRepository eventRepository;
+    private final EntityManager entityManager;
 
 
     @Override
@@ -115,6 +117,8 @@ public class CompilationServiceImpl implements CompilationService {
         if (eventList.size() != ids.size()) {
             throw new IllegalArgumentException("Переданы несуществующие события");
         }
-        return new HashSet<>(eventList);
+        return ids.stream()
+                .map(id -> entityManager.getReference(Event.class, id))
+                .collect(Collectors.toSet());
     }
 }

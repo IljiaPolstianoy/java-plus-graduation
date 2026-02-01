@@ -1,5 +1,6 @@
 package ru.practicum.compilation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
@@ -32,6 +33,7 @@ public class Compilation {
             joinColumns = {@JoinColumn(name = "compilation_id")},
             inverseJoinColumns = {@JoinColumn(name = "event_id")}
     )
+    @JsonIgnore
     private Set<Event> events;
 
     public void addEvent(Event event) {

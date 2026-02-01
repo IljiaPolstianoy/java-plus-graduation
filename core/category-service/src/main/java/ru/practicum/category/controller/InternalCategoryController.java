@@ -1,16 +1,15 @@
 package ru.practicum.category.controller;
 
 import jakarta.validation.constraints.Positive;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.practicum.category.Category;
 import ru.practicum.category.CategoryService;
+import ru.practicum.exception.CategoryNotFoundException;
 
-import java.util.Optional;
-
-@Controller
+@RestController
 @RequestMapping("/internal/category")
 public class InternalCategoryController {
 
@@ -21,7 +20,8 @@ public class InternalCategoryController {
     }
 
     @GetMapping("/{categoryId}")
-    public Optional<Category> findById(@PathVariable @Positive final Long categoryId) {
-        return categoryService.findById(categoryId);
+    public Category findById(@PathVariable @Positive final Long categoryId) {
+        return categoryService.findById(categoryId)
+                .orElseThrow(() -> new CategoryNotFoundException(String.format("Category with id=%d was not found", categoryId)));
     }
 }

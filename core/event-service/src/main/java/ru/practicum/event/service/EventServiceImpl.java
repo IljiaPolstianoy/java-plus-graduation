@@ -14,15 +14,18 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import ru.practicum.category.Category;
-import ru.practicum.event.*;
+import ru.practicum.event.Event;
+import ru.practicum.event.EventMapper;
+import ru.practicum.event.EventRepository;
+import ru.practicum.event.EventSpecifications;
 import ru.practicum.event.dto.*;
-import ru.practicum.exception.*;
 import ru.practicum.event.enums.EventState;
 import ru.practicum.event.enums.EventStateAction;
 import ru.practicum.event.feign.CategoryRepository;
 import ru.practicum.event.feign.LocationRepository;
 import ru.practicum.event.feign.RequestService;
 import ru.practicum.event.feign.UserRepository;
+import ru.practicum.exception.*;
 import ru.practicum.location.Location;
 import ru.practicum.request.dto.ConfirmedRequestsCount;
 import ru.practicum.stats.ClientRestStat;
@@ -34,6 +37,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -235,14 +239,12 @@ public class EventServiceImpl implements EventService {
 
         Event event = eventMapper.toEvent(eventDto);
         if (eventDto.getCategory() != null) {
-            Category category = categoryRepository.findById(eventDto.getCategory())
-                    .orElseThrow(() -> new CategoryNotFoundException(String.format("Category with id=%d was not found", eventDto.getCategory())));
+            Category category = categoryRepository.findById(eventDto.getCategory());
             event.setCategory(category);
         }
 
         if (eventDto.getInitiator() != null) {
-            User user = userRepository.findById(eventDto.getInitiator())
-                    .orElseThrow(() -> new UserNotFoundException(String.format("User with id=%d was not found", eventDto.getInitiator())));
+            User user = userRepository.findById(eventDto.getInitiator());
             event.setInitiator(user);
         }
 
@@ -250,12 +252,7 @@ public class EventServiceImpl implements EventService {
             Location location = locationRepository.findByLatAndLon(
                     eventDto.getLocation().getLat(),
                     eventDto.getLocation().getLon()
-            ).orElseGet(() -> {
-                Location newLocation = new Location();
-                newLocation.setLat(eventDto.getLocation().getLat());
-                newLocation.setLon(eventDto.getLocation().getLon());
-                return locationRepository.save(newLocation);
-            });
+            );
             event.setLocation(location);
         }
 
@@ -392,16 +389,21 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> findAllById(final RequestAllEvent requestAllEvent) {
-        return eventRepository.findAllById(requestAllEvent.getIds());
+    public List<Event> findAllById(final Set<Long> ids) {
+        return eventRepository.findAllById(ids);
     }
 
     @Override
-    public Page<Event> findAllByInitiatorIdIn(final RequestAllByInitiatorIds requestAllByInitiatorIds) {
+    public Page<Event> findAllByInitiatorIdIn(List<Long> userIds, Pageable pageable) {
         return eventRepository.findAllByInitiatorIdIn(
-                requestAllByInitiatorIds.getUserId(),
-                requestAllByInitiatorIds.getPageable()
+                userIds,
+                pageable
         );
+    }
+
+    @Override
+    public void delete(final Long eventId) {
+        eventRepository.deleteById(eventId);
     }
 
     private void enrichEventWithAdditionalData(EventDtoFull event) {

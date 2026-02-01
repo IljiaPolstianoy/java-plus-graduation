@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import ru.practicum.location.Location;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 @FeignClient(
         name = "main-service",
@@ -20,7 +19,7 @@ import java.util.Optional;
 public interface LocationFeignClient {
 
     @GetMapping("/{lat}/{lon}")
-    Optional<Location> getLocation(
+    Location getLocation(
             @PathVariable("lat") @NotNull final BigDecimal lat,
             @PathVariable("lon") @NotNull final BigDecimal lon
     );

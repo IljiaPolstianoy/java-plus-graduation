@@ -1,6 +1,6 @@
 package ru.practicum.exception;
 
-public class CommentNotFoundException extends Exception {
+public class CommentNotFoundException extends RuntimeException {
     public CommentNotFoundException(String message) {
         super(message);
     }

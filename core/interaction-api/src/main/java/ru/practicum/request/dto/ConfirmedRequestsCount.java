@@ -1,7 +1,11 @@
 package ru.practicum.request.dto;
 
-public interface ConfirmedRequestsCount {
-    Long getEventId();
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-    Long getCount();
+@RequiredArgsConstructor
+@Getter
+public class ConfirmedRequestsCount {
+    private final Long eventId;
+    private final Long count;
 }
