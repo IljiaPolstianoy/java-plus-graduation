@@ -53,7 +53,11 @@ public class EventServiceImpl implements EventService {
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final LocationRepository locationRepository;
+<<<<<<<< HEAD:core/event-service/src/main/java/ru/practicum/event/service/EventServiceImpl.java
     private final RequestService requestRepository;
+========
+    private final RequestRepository requestRepository;
+>>>>>>>> 7eb8c675e7ba0eaf72df6c1f910a29b9e6f240fe:core/main-service/src/main/java/ru/practicum/mainservice/event/EventServiceImpl.java
 
     private void validateFilter(EventFilterBase filter) throws FilterValidationException, EventDateException {
 
@@ -368,6 +372,7 @@ public class EventServiceImpl implements EventService {
         return eventDto;
     }
 
+<<<<<<<< HEAD:core/event-service/src/main/java/ru/practicum/event/service/EventServiceImpl.java
     @Override
     public Optional<Event> findById(final Long eventId) {
         return eventRepository.findById(eventId);
@@ -431,4 +436,31 @@ public class EventServiceImpl implements EventService {
                 event.getId(), views);
         event.setViews(views);
     }
+========
+    private void enrichEventWithAdditionalData(EventDtoFull event) {
+        Long confirmedRequests = requestRepository.countConfirmedRequests(event.getId());
+        log.info("Main-service. enrichEvent: eventId = {}, confirmedRequests = {} ",
+                event.getId(), confirmedRequests);
+        event.setConfirmedRequests(confirmedRequests);
+
+        String uri = "/events/" + event.getId();
+
+        LocalDateTime start = LocalDateTime.now().minusMinutes(1);
+        LocalDateTime end = LocalDateTime.now().plusMinutes(1);
+
+        List<ViewStatsDto> stats = clientRestStat.getStat(
+                start,
+                end,
+                List.of(uri),
+                true
+        );
+
+        log.info("Main-service. enrichEvent: stats response for uri {} = {}", uri, stats);
+
+        Long views = stats.isEmpty() ? 0L : stats.get(0).getHits();
+        log.info("Main-service. enrichEvent: eventId = {}, hits = {} ",
+                event.getId(), views);
+        event.setViews(views);
+    }
+>>>>>>>> 7eb8c675e7ba0eaf72df6c1f910a29b9e6f240fe:core/main-service/src/main/java/ru/practicum/mainservice/event/EventServiceImpl.java
 }
