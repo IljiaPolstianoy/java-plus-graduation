@@ -10,9 +10,9 @@ import ru.practicum.event.dto.EventDtoFull;
 import ru.practicum.exception.*;
 import ru.practicum.feign.EventRepository;
 import ru.practicum.feign.UserRepository;
-import ru.practicum.request.dto.*;
 import ru.practicum.request.Request;
 import ru.practicum.request.RequestStatus;
+import ru.practicum.request.dto.*;
 import ru.practicum.user.User;
 
 import java.time.LocalDateTime;
@@ -168,7 +168,9 @@ public class RequestServiceImpl implements RequestService {
 
         Event event = eventRepository.findByIdAndInitiatorId(eventId, userId);
 
+        log.debug("Отправка запроса findByEventIdAndEventInitiatorId в БД с eventId = {} и userId = {}", eventId, userId);
         List<Request> requests = requestRepository.findByEventIdAndEventInitiatorId(eventId, userId);
+        log.debug("Получен ответ из репозитория от метода findByEventIdAndEventInitiatorId");
 
         log.info("Main-service. getRequestsByOwnerOfEvent success: size = {}", requests.size());
 
