@@ -5,9 +5,9 @@ import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.dto.EventDto;
-import ru.practicum.dto.EventDtoFull;
-import ru.practicum.dto.EventFilterAdmin;
+import ru.practicum.event.dto.EventDto;
+import ru.practicum.event.dto.EventDtoFull;
+import ru.practicum.event.filter.EventFilterAdmin;
 import ru.practicum.event.service.EventService;
 import ru.practicum.exception.*;
 

@@ -1,4 +1,4 @@
-package ru.practicum.dto;
+package ru.practicum.event.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import ru.practicum.category.CategoryDto;
+import ru.practicum.user.dto.UserDto;
 import ru.practicum.enums.EventState;
 import ru.practicum.location.LocationDto;
 

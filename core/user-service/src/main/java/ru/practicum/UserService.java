@@ -1,6 +1,6 @@
 package ru.practicum;
 
-import ru.practicum.dto.UserDto;
+import ru.practicum.user.dto.UserDto;
 import ru.practicum.exception.UserAlreadyExistsException;
 import ru.practicum.user.User;
 

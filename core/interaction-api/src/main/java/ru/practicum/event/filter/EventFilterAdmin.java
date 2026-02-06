@@ -1,4 +1,4 @@
-package ru.practicum.dto;
+package ru.practicum.event.filter;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;

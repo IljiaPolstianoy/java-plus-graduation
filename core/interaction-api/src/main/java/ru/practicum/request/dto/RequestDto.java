@@ -1,4 +1,4 @@
-package ru.practicum.dto;
+package ru.practicum.request.dto;
 
 import lombok.*;
 import ru.practicum.request.RequestStatus;

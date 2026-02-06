@@ -21,11 +21,11 @@ public interface CommentRepository  extends JpaRepository<Comment, Long> {
     List<Comment> findByEventId(Long eventId);
 
     @Modifying
-    @Query("DELETE FROM Comment c WHERE c.id = :commentId AND c.event.id = :eventId")
+    @Query("DELETE FROM Comment c WHERE c.id = :commentId AND c.eventId = :eventId")
     void deleteByIdAndEventId(@Param("commentId") Long commentId, @Param("eventId") Long eventId);
 
     @Modifying
-    @Query("DELETE FROM Comment c WHERE c.id = :commentId AND c.event.id = :eventId AND c.author.id = :userId")
+    @Query("DELETE FROM Comment c WHERE c.id = :commentId AND c.eventId = :eventId AND c.authorId = :userId")
     void deleteByIdAndEventIdAndAuthorId(@Param("commentId") Long commentId,
                                          @Param("eventId") Long eventId,
                                          @Param("userId") Long userId);
@@ -34,7 +34,7 @@ public interface CommentRepository  extends JpaRepository<Comment, Long> {
 
     Page<Comment> findByEventIdAndStatus(Long eventId, CommentStatus status, Pageable pageable);
 
-    Page<Comment> findByAuthor_Id(Long userId, Pageable pageable);
+    Page<Comment> findByAuthorId(Long userId, Pageable pageable);
 
     long countByEventId(Long eventId);
 

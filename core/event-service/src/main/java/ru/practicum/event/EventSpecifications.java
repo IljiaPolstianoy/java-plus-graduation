@@ -2,8 +2,8 @@ package ru.practicum.event;
 
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
-import ru.practicum.dto.EventFilterAdmin;
-import ru.practicum.dto.EventFilterPublic;
+import ru.practicum.event.filter.EventFilterAdmin;
+import ru.practicum.event.filter.EventFilterPublic;
 import ru.practicum.enums.EventState;
 
 import java.util.ArrayList;

@@ -4,10 +4,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ru.practicum.event.Event;
-import ru.practicum.dto.EventDto;
-import ru.practicum.dto.EventDtoFull;
-import ru.practicum.dto.EventFilterAdmin;
-import ru.practicum.dto.EventFilterPublic;
+import ru.practicum.event.dto.EventDto;
+import ru.practicum.event.dto.EventDtoFull;
+import ru.practicum.event.filter.EventFilterAdmin;
+import ru.practicum.event.filter.EventFilterPublic;
 import ru.practicum.exception.*;
 
 import java.util.List;

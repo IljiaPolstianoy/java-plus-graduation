@@ -3,7 +3,7 @@ package ru.practicum.feign;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.practicum.event.Event;
-import ru.practicum.dto.EventDtoFull;
+import ru.practicum.event.dto.EventDtoFull;
 
 @Component
 @RequiredArgsConstructor

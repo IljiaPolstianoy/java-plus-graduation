@@ -3,7 +3,7 @@ package ru.practicum;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import ru.practicum.config.CommonMapperConfiguration;
-import ru.practicum.dto.UserDto;
+import ru.practicum.user.dto.UserDto;
 import ru.practicum.user.User;
 
 @Mapper(config = CommonMapperConfiguration.class)

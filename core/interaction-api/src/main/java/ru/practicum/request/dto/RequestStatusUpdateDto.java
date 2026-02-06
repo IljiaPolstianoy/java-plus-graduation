@@ -1,9 +1,10 @@
-package ru.practicum.dto;
+package ru.practicum.request.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import ru.practicum.request.RequestStatus;
 
 import java.util.List;
 
@@ -11,9 +12,8 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestStatusUpdateResultDto {
-
-    private List<ParticipationRequestDto> confirmedRequests;
-    private List<ParticipationRequestDto> rejectedRequests;
+public class RequestStatusUpdateDto {
+    private List<Long> requestIds;
+    private RequestStatus status;
 
 }

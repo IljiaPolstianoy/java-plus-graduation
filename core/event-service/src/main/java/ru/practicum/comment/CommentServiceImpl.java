@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = commentRepository.findByIdAndEventId(commentId, eventId)
                 .orElseThrow(() -> new CommentNotFoundException(
                         "Комментарий не найден с ID %d для события с ID %d ".formatted(commentId, eventId)));
-        log.info("Main-service. findComment success eventId = {}, commentId = {}", comment.getEvent().getId(), comment.getId());
+        log.info("Main-service. findComment success eventId = {}, commentId = {}", comment.getEventId(), comment.getId());
         return commentMapper.toDto(comment);
     }
 
@@ -73,7 +73,7 @@ public class CommentServiceImpl implements CommentService {
         log.info("Main-service. findUserComments userId = {}", userId);
         User author = userRepository.findById(userId);
 
-        Page<Comment> comments = commentRepository.findByAuthor_Id(userId, pageable);
+        Page<Comment> comments = commentRepository.findByAuthorId(userId, pageable);
 
         log.info("Main-service. findUserComments success = {}", comments.getSize());
 
@@ -92,8 +92,8 @@ public class CommentServiceImpl implements CommentService {
                         "Event with id " + eventId + " not found"
                 ));
         Comment comment = commentMapper.toEntity(commentDto);
-        comment.setAuthor(author);
-        comment.setEvent(event);
+        comment.setAuthorId(author.getId());
+        comment.setEventId(event.getId());
         comment.setCreated(LocalDateTime.now());
         comment.setStatus(CommentStatus.PENDING);
 

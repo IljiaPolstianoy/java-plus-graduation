@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.dto.UserDto;
+import ru.practicum.user.dto.UserDto;
 import ru.practicum.exception.UserAlreadyExistsException;
 import ru.practicum.user.User;
 

@@ -1,4 +1,4 @@
-package ru.practicum.dto;
+package ru.practicum.user.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;

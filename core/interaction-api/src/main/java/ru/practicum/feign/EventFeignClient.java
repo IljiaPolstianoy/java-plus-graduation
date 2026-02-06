@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.event.Event;
-import ru.practicum.dto.EventDtoFull;
+import ru.practicum.event.dto.EventDtoFull;
 import ru.practicum.exception.CategoryIsRelatedToEventException;
 
 import java.util.List;
