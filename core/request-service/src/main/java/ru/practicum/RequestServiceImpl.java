@@ -169,7 +169,7 @@ public class RequestServiceImpl implements RequestService {
         Event event = eventRepository.findByIdAndInitiatorId(eventId, userId);
 
         log.debug("Отправка запроса findByEventIdAndEventInitiatorId в БД с eventId = {} и userId = {}", eventId, userId);
-        List<Request> requests = requestRepository.findByEventIdAndEventInitiatorId(eventId, userId);
+        List<Request> requests = requestRepository.findByEventId(eventId);
         log.debug("Получен ответ из репозитория от метода findByEventIdAndEventInitiatorId");
 
         log.info("Main-service. getRequestsByOwnerOfEvent success: size = {}", requests.size());

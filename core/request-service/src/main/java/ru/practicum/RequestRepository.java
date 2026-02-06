@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.request.dto.ConfirmedRequestsCount;
 import ru.practicum.request.Request;
 import ru.practicum.request.RequestStatus;
+import ru.practicum.request.dto.ConfirmedRequestsCount;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,10 +17,12 @@ import java.util.Optional;
 public interface RequestRepository extends JpaRepository<Request, Long> {
 
 //     getRequestsByOwnerOfEvent
-    @Query("SELECT r FROM Request r " +
-            "JOIN Event e ON r.eventId = e.id " +
-            "WHERE r.eventId = :eventId AND e.initiatorId = :initiatorId")
-    List<Request> findByEventIdAndEventInitiatorId(@Param("eventId") Long eventId, @Param("initiatorId") Long initiatorId);
+//    @Query("SELECT r FROM Request r " +
+//            "JOIN Event e ON r.eventId = e.id " +
+//            "WHERE r.eventId = :eventId AND e.initiatorId = :initiatorId")
+//    List<Request> findByEventIdAndEventInitiatorId(@Param("eventId") Long eventId, @Param("initiatorId") Long initiatorId);
+
+    List<Request> findByEventId(@Param("eventId") Long eventId);
 
     // createRequest
     Boolean existsByRequesterIdAndEventId(Long requesterId, Long eventId);
