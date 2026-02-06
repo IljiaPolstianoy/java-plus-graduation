@@ -2,8 +2,6 @@ package ru.practicum.request;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ru.practicum.event.Event;
-import ru.practicum.user.User;
 
 import java.time.LocalDateTime;
 
@@ -22,13 +20,11 @@ public class Request {
     @Column(name = "created")
     private LocalDateTime created;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event", referencedColumnName = "id", nullable = false)
-    private Event event;
+    @Column(name = "event", nullable = false)
+    private Long eventId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "requester", referencedColumnName = "id", nullable = false)
-    private User requester;
+    @Column(name = "requester", nullable = false)
+    private Long requesterId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 25)

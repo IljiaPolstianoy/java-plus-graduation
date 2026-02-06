@@ -1,63 +1,82 @@
 package ru.practicum;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import ru.practicum.config.CommonMapperConfiguration;
-import ru.practicum.request.dto.ParticipationRequestDto;
-import ru.practicum.request.dto.RequestDto;
+import org.springframework.stereotype.Component;
 import ru.practicum.event.Event;
 import ru.practicum.request.Request;
+import ru.practicum.request.dto.ParticipationRequestDto;
+import ru.practicum.request.dto.RequestDto;
 import ru.practicum.user.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper(config = CommonMapperConfiguration.class)
-public interface RequestMapper {
+@Component
+public class RequestMapper {
 
-    @Mapping(target = "event", source = "event", qualifiedByName = "mapEventToId")
-    @Mapping(target = "requester", source = "requester", qualifiedByName = "mapUserToId")
-    RequestDto toDto(Request request);
+    public RequestDto toDto(Request request) {
+        if (request == null) {
+            return null;
+        }
 
-    @Mapping(target = "event", ignore = true)
-    @Mapping(target = "requester", ignore = true)
-    @Mapping(target = "created", ignore = true)
-    @Mapping(target = "status", ignore = true)
-    Request toEntity(RequestDto requestDto);
+        return RequestDto.builder()
+                .id(request.getId())
+                .created(request.getCreated())
+                .event(request.getEventId())
+                .requester(request.getRequesterId())
+                .status(request.getStatus())
+                .build();
+    }
 
-    List<RequestDto> toDtoList(List<Request> requests);
+    public List<RequestDto> toDtoList(List<Request> requests) {
+        if (requests == null) {
+            return null;
+        }
 
-    @Mapping(target = "event", source = "event.id")
-    @Mapping(target = "requester", source = "requester.id")
-    ParticipationRequestDto toParticipationDto(Request request);
+        return requests.stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
+    }
 
-    default List<ParticipationRequestDto> toParticipationDtoList(List<Request> requests) {
+    public ParticipationRequestDto toParticipationDto(Request request) {
+        if (request == null) {
+            return null;
+        }
+
+        return ParticipationRequestDto.builder()
+                .id(request.getId())
+                .created(request.getCreated())
+                .event(request.getEventId())
+                .requester(request.getRequesterId())
+                .status(request.getStatus())
+                .build();
+    }
+
+    public List<ParticipationRequestDto> toParticipationDtoList(List<Request> requests) {
+        if (requests == null) {
+            return null;
+        }
+
         return requests.stream()
                 .map(this::toParticipationDto)
                 .collect(Collectors.toList());
     }
 
-    @Named("mapEventToId")
-    default Long mapEventToId(Event event) {
+    public Long mapEventToId(Event event) {
         return event != null ? event.getId() : null;
     }
 
-    @Named("mapUserToId")
-    default Long mapUserToId(User user) {
+    public Long mapUserToId(User user) {
         return user != null ? user.getId() : null;
     }
 
-    @Named("mapIdToEvent")
-    default Event mapIdToEvent(Long eventId) {
+    public Event mapIdToEvent(Long eventId) {
         if (eventId == null) {
             return null;
         }
         return Event.builder().id(eventId).build();
     }
 
-    @Named("mapIdToUser")
-    default User mapIdToUser(Long userId) {
+    public User mapIdToUser(Long userId) {
         if (userId == null) {
             return null;
         }

@@ -62,8 +62,8 @@ public class RequestServiceImpl implements RequestService {
 
         Request request = Request.builder()
                 .created(LocalDateTime.now())
-                .event(event)
-                .requester(user)
+                .eventId(event.getId())
+                .requesterId(user.getId())
                 .status(status)
                 .build();
 

@@ -17,7 +17,11 @@ import java.util.Optional;
 public interface RequestRepository extends JpaRepository<Request, Long> {
 
     // getRequestsByOwnerOfEvent
-    List<Request> findByEventIdAndEvent_InitiatorId(Long eventId, Long initiatorId);
+    @Query("SELECT r FROM Request r " +
+            "JOIN Event e ON r.eventId = e.id " +
+            "WHERE r.eventId = :eventId AND e.initiatorId = :initiatorId")
+    List<Request> findByEventIdAndEvent_InitiatorId(@Param("eventId") Long eventId,
+                                                    @Param("initiatorId") Long initiatorId);
 
     // createRequest
     Boolean existsByRequesterIdAndEventId(Long requesterId, Long eventId);
@@ -29,32 +33,32 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
     Optional<Request> findByIdAndRequesterId(Long id, Long requesterId);
 
     // updateRequests
-    @Query("SELECT r FROM Request r WHERE r.id IN :requestIds AND r.event.id = :eventId")
+    @Query("SELECT r FROM Request r WHERE r.id IN :requestIds AND r.eventId = :eventId")
     List<Request> findByIdInAndEventId(@Param("requestIds") List<Long> requestIds,
                                        @Param("eventId") Long eventId);
 
     // лимит участников
-    @Query("SELECT COUNT(r) FROM Request r WHERE r.event.id = :eventId AND r.status = 'CONFIRMED'")
+    @Query("SELECT COUNT(r) FROM Request r WHERE r.eventId = :eventId AND r.status = 'CONFIRMED'")
     Long countConfirmedRequests(@Param("eventId") Long eventId);
 
     @Modifying
     @Transactional
     @Query("UPDATE Request r SET r.status = :status " +
-            "WHERE r.id IN :requestIds AND r.event.id = :eventId")
+            "WHERE r.id IN :requestIds AND r.eventId = :eventId")
     int updateRequestsStatus(@Param("requestIds") List<Long> requestIds,
                              @Param("eventId") Long eventId,
                              @Param("status") RequestStatus status);
 
-    @Query("SELECT r FROM Request r WHERE r.id IN :requestIds AND r.event.id = :eventId AND r.status = :status")
+    @Query("SELECT r FROM Request r WHERE r.id IN :requestIds AND r.eventId = :eventId AND r.status = :status")
     List<Request> findRequestsByStatus(@Param("requestIds") List<Long> requestIds,
                                        @Param("eventId") Long eventId,
                                        @Param("status") RequestStatus status);
 
-    @Query("SELECT r.event.id as eventId, COUNT(r) as count " +
+    @Query("SELECT r.eventId as eventId, COUNT(r) as count " +
             "FROM Request r " +
-            "WHERE r.event.id IN :eventIds " +
+            "WHERE r.eventId IN :eventIds " +
             "AND r.status = 'CONFIRMED' " +
-            "GROUP BY r.event.id")
+            "GROUP BY r.eventId")
     List<ConfirmedRequestsCount> findConfirmedRequestsCountByEventIds(@Param("eventIds") List<Long> eventIds);
 
     Long countByEventIdAndStatus(Long eventId, RequestStatus status);
