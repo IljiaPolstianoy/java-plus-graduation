@@ -2,9 +2,9 @@ spring:
   application:
     name: gateway-server
   cloud:
-    gateway:
+    gateway.server.webflux:
       routes:
-        -
+
         - id: stats-service
           uri: lb://STATS-SERVER
           predicates:

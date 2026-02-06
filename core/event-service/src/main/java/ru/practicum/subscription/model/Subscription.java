@@ -17,11 +17,9 @@ public class Subscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "user_id")
+    private Long userId;
 
-    @ManyToOne
-    @JoinColumn(name = "subscription_id")
-    private User subscription;
+    @Column(name = "subscription_id")
+    private Long subscriptionId;
 }

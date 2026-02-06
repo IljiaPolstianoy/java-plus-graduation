@@ -39,10 +39,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         Subscription subscriptionSave = new Subscription();
 
         User user = userRepository.findById(userId);
-        subscriptionSave.setUser(user);
+        subscriptionSave.setUserId(user.getId());
 
         User subscription = userRepository.findById(subscriptionId);
-        subscriptionSave.setSubscription(subscription);
+        subscriptionSave.setSubscriptionId(subscription.getId());
 
         return subscriptionRepository.save(subscriptionSave);
     }
@@ -63,7 +63,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         }
 
         List<Long> subscribedUserIds = subscription.stream()
-                .map(SubscriptionDtoProjection::getSubscription)
+                .map(SubscriptionDtoProjection::getSubscriptionId)
                 .map(User::getId)
                 .toList();
 
