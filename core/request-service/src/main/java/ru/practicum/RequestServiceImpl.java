@@ -168,7 +168,7 @@ public class RequestServiceImpl implements RequestService {
 
         Event event = eventRepository.findByIdAndInitiatorId(eventId, userId);
 
-        List<Request> requests = requestRepository.findByEventIdAndEvent_InitiatorId(eventId, userId);
+        List<Request> requests = requestRepository.findByEventIdAndEventInitiatorId(eventId, userId);
 
         log.info("Main-service. getRequestsByOwnerOfEvent success: size = {}", requests.size());
 
