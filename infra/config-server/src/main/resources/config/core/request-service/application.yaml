@@ -33,6 +33,9 @@ logging:
   level:
     ru.practicum.stats: INFO
     org.springframework.transaction.interceptor: TRACE
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    ru.practicum: DEBUG
 
 ---
 # Настройки для профиля test

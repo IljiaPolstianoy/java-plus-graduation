@@ -4,5 +4,5 @@ CREATE TABLE IF NOT EXISTS request
     created   TIMESTAMP WITHOUT TIME ZONE,
     event_id     BIGINT NOT NULL,
     requester_id BIGINT NOT NULL,
-    status    varchar(25)                                    NOT NULL
+    status varchar(25)  NOT NULL
 );

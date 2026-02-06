@@ -16,7 +16,7 @@ import java.util.Optional;
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {
 
-    // getRequestsByOwnerOfEvent
+//     getRequestsByOwnerOfEvent
     @Query("SELECT r FROM Request r " +
             "JOIN Event e ON r.eventId = e.id " +
             "WHERE r.eventId = :eventId AND e.initiatorId = :initiatorId")
