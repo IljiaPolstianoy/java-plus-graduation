@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import ru.practicum.request.dto.ConfirmedRequestsCount;
-import ru.practicum.request.dto.RequestDto;
-import ru.practicum.request.dto.RequestStatusUpdateDto;
-import ru.practicum.request.dto.RequestStatusUpdateResultDto;
+import ru.practicum.dto.ConfirmedRequestsCount;
+import ru.practicum.dto.RequestDto;
+import ru.practicum.dto.RequestStatusUpdateDto;
+import ru.practicum.dto.RequestStatusUpdateResultDto;
 
 import java.util.List;
 

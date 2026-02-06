@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.event.Event;
+import ru.practicum.dto.EventDtoFull;
 import ru.practicum.event.service.EventService;
 import ru.practicum.exception.CategoryIsRelatedToEventException;
 import ru.practicum.exception.EventNotFoundException;
@@ -25,9 +26,8 @@ public class InternalEventController {
     private final EventService eventService;
 
     @GetMapping("/{eventId}")
-    public Event findById(@PathVariable @NotNull final Long eventId) {
-        return eventService.findById(eventId)
-                .orElseThrow(() -> new EventNotFoundException("Событие не найдено с ID %d".formatted(eventId)));
+    public EventDtoFull findById(@PathVariable @NotNull final Long eventId) {
+        return eventService.findById(eventId);
     }
 
     @GetMapping("/{eventId}/user/{userId}")

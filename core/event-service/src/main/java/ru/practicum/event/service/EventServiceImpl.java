@@ -13,25 +13,20 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import ru.practicum.category.Category;
+import ru.practicum.dto.*;
+import ru.practicum.enums.EventState;
+import ru.practicum.enums.EventStateAction;
 import ru.practicum.event.Event;
 import ru.practicum.event.EventMapper;
 import ru.practicum.event.EventRepository;
 import ru.practicum.event.EventSpecifications;
-import ru.practicum.event.dto.*;
-import ru.practicum.event.enums.EventState;
-import ru.practicum.event.enums.EventStateAction;
-import ru.practicum.event.feign.CategoryRepository;
-import ru.practicum.event.feign.LocationRepository;
-import ru.practicum.event.feign.RequestService;
-import ru.practicum.event.feign.UserRepository;
 import ru.practicum.exception.*;
+import ru.practicum.feign.RequestService;
 import ru.practicum.location.Location;
-import ru.practicum.request.dto.ConfirmedRequestsCount;
+import ru.practicum.location.LocationRepository;
 import ru.practicum.stats.ClientRestStat;
 import ru.practicum.stats.EndpointHitDto;
 import ru.practicum.stats.ViewStatsDto;
-import ru.practicum.user.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -50,8 +45,6 @@ public class EventServiceImpl implements EventService {
     private final ClientRestStat clientRestStat;
     private final EventMapper eventMapper;
     private final Validator validator;
-    private final CategoryRepository categoryRepository;
-    private final UserRepository userRepository;
     private final LocationRepository locationRepository;
     private final RequestService requestRepository;
 
@@ -239,21 +232,27 @@ public class EventServiceImpl implements EventService {
 
         Event event = eventMapper.toEvent(eventDto);
         if (eventDto.getCategory() != null) {
-            Category category = categoryRepository.findById(eventDto.getCategory());
-            event.setCategory(category);
+            event.setCategoryId(eventDto.getCategory());
         }
 
         if (eventDto.getInitiator() != null) {
-            User user = userRepository.findById(eventDto.getInitiator());
-            event.setInitiator(user);
+            event.setInitiatorId(eventDto.getInitiator());
         }
 
         if (eventDto.getLocation() != null) {
             Location location = locationRepository.findByLatAndLon(
                     eventDto.getLocation().getLat(),
                     eventDto.getLocation().getLon()
-            );
-            event.setLocation(location);
+                    )
+                    .orElseGet(() ->
+                            locationRepository.save(
+                                    Location.builder()
+                                            .lat(eventDto.getLocation().getLat())
+                                            .lon(eventDto.getLocation().getLon())
+                                            .build())
+
+                    );
+            event.setLocationId(location.getId());
         }
 
         event.setState(EventState.PENDING);
@@ -369,8 +368,9 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Optional<Event> findById(final Long eventId) {
-        return eventRepository.findById(eventId);
+    public EventDtoFull findById(final Long eventId) {
+        return eventMapper.toEventFullDto(eventRepository.findById(eventId)
+                .orElseThrow(() -> new EventNotFoundException("Событие не найдено с ID %d".formatted(eventId))));
     }
 
     @Override

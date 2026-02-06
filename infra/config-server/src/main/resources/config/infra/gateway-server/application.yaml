@@ -4,11 +4,7 @@ spring:
   cloud:
     gateway:
       routes:
-#        - id: mainservice
-#          uri: lb://MAIN-SERVICE
-#          predicates:
-#            - Path=/admin/categories/**, /admin/compilations/**, /admin/comments/**, /admin/events/**, /admin/users/**, /categories/**, /compilations/**, /events/**, /users/**, /comments/**
-
+        -
         - id: stats-service
           uri: lb://STATS-SERVER
           predicates:
@@ -22,12 +18,7 @@ spring:
         - id: event-service
           uri: lb://EVENT-SERVICE
           predicates:
-            - Path=/admin/events/**, /users/{userId}/events/**, /events/**
-
-        - id: main-service
-          uri: lb://MAIN-SERVICE
-          predicates:
-            - Path=/admin/comments/**, /users/{userId}/comments/**, /events/{eventId}/comments/**, /admin/compilations/**, /compilations/**, /users/{id}/subscriptions/**
+            - Path=/admin/comments/**, /users/{userId}/comments/**, /events/{eventId}/comments/**, /admin/compilations/**, /compilations/**, /users/{id}/subscriptions/**, /admin/events/**, /users/{userId}/events/**, /events/**
 
         - id: request-service
           uri: lb://REQUEST-SERVICE

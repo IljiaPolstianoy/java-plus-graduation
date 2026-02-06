@@ -4,10 +4,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ru.practicum.event.Event;
-import ru.practicum.event.dto.EventDto;
-import ru.practicum.event.dto.EventDtoFull;
-import ru.practicum.event.dto.EventFilterAdmin;
-import ru.practicum.event.dto.EventFilterPublic;
+import ru.practicum.dto.EventDto;
+import ru.practicum.dto.EventDtoFull;
+import ru.practicum.dto.EventFilterAdmin;
+import ru.practicum.dto.EventFilterPublic;
 import ru.practicum.exception.*;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public interface EventService {
 
     EventDtoFull findEventById(Long eventId, HttpServletRequest request) throws EventNotFoundException;
 
-    Optional<Event> findById(Long eventId);
+    EventDtoFull findById(Long eventId);
 
     Optional<Event> findByIdAndInitiatorId(Long eventId, Long userId);
 

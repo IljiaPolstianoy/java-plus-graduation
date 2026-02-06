@@ -11,10 +11,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+      connection: false
+    transaction: false
     show-sql: true
     properties:
       hibernate:
-        default_schema: public
         format_sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   sql:
@@ -33,6 +34,9 @@ spring:
 logging:
   level:
     ru.practicum.stats: INFO
+    ru.practicum.client.EventClient: DEBUG
+    feign: DEBUG
+    org.springframework.cloud.openfeign: DEBUG
     org:
       hibernate.type.descriptor.sql.BasicBinder: Trace
       springframework.transaction.interceptor: TRACE

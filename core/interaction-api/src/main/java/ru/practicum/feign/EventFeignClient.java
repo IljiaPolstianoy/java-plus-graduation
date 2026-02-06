@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.event.Event;
+import ru.practicum.dto.EventDtoFull;
 import ru.practicum.exception.CategoryIsRelatedToEventException;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.Set;
 public interface EventFeignClient {
 
     @GetMapping("/{eventId}")
-    Event findById(@PathVariable @NotNull final Long eventId);
+    EventDtoFull findById(@PathVariable @NotNull final Long eventId);
 
     @GetMapping("/{eventId}/user/{userId}")
     Event findByIdAndInitiatorId(

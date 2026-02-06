@@ -3,11 +3,8 @@ package ru.practicum.event;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import ru.practicum.category.Category;
 import ru.practicum.compilation.Compilation;
-import ru.practicum.event.enums.EventState;
-import ru.practicum.location.Location;
-import ru.practicum.user.User;
+import ru.practicum.enums.EventState;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -20,15 +17,15 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public class Event {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String annotation;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private Category category;
+    @Column(name = "category_id")
+    private Long categoryId;
 
     // Счетчик не обновляется в бд, считается по запросам на участие
     private Long confirmedRequests;
@@ -40,13 +37,11 @@ public class Event {
 
     private LocalDateTime eventDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "initiator_id", referencedColumnName = "id")
-    private User initiator;
+    @Column(name = "initiator_id")
+    private Long initiatorId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "location_id", referencedColumnName = "id")
-    private Location location;
+    @Column(name = "location_id")
+    private Long locationId;
 
     private Boolean paid;
 
@@ -55,6 +50,7 @@ public class Event {
 
     @Column(name = "published_on")
     private LocalDateTime publishedOn;
+
     private Boolean requestModeration;
 
     @Enumerated(EnumType.STRING)

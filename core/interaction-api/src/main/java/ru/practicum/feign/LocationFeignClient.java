@@ -26,4 +26,9 @@ public interface LocationFeignClient {
 
     @PostMapping
     Location save(@RequestBody @Valid final Location location);
+
+    @GetMapping("{locationId}")
+    Location getLocationById(
+            @PathVariable("locationId") @NotNull final Long locationId
+    );
 }

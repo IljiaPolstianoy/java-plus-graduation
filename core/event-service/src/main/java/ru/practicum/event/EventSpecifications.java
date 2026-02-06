@@ -2,9 +2,9 @@ package ru.practicum.event;
 
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
-import ru.practicum.event.dto.EventFilterAdmin;
-import ru.practicum.event.dto.EventFilterPublic;
-import ru.practicum.event.enums.EventState;
+import ru.practicum.dto.EventFilterAdmin;
+import ru.practicum.dto.EventFilterPublic;
+import ru.practicum.enums.EventState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class EventSpecifications {
             }
 
             if (filter.getCategories() != null && !filter.getCategories().isEmpty()) {
-                predicates.add(root.get("category").get("id").in(filter.getCategories()));
+                predicates.add(root.get("categoryId").in(filter.getCategories()));
             }
 
             if (filter.getPaid() != null) {
@@ -60,7 +60,7 @@ public class EventSpecifications {
             List<Predicate> predicates = new ArrayList<>();
 
             if (filter.getUsers() != null && !filter.getUsers().isEmpty()) {
-                predicates.add(root.get("initiator").get("id").in(filter.getUsers()));
+                predicates.add(root.get("initiatorId").in(filter.getUsers()));
             }
 
             if (filter.getStates() != null && !filter.getStates().isEmpty()) {
@@ -68,7 +68,7 @@ public class EventSpecifications {
             }
 
             if (filter.getCategories() != null && !filter.getCategories().isEmpty()) {
-                predicates.add(root.get("category").get("id").in(filter.getCategories()));
+                predicates.add(root.get("categoryId").in(filter.getCategories()));
             }
 
             if (filter.getRangeStart() != null && filter.getRangeEnd() != null) {
