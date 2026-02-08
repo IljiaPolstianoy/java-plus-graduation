@@ -9,12 +9,16 @@
         <version>0.0.2-SNAPSHOT</version>
     </parent>
 
-    <groupId>ru.yandex.practicum</groupId>
     <artifactId>core</artifactId>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>main-service</module>
+        <module>event-service</module>
+        <module>interaction-api</module>
+        <module>user-service</module>
+        <module>request-service</module>
+        <module>category-service</module>
     </modules>
 
 </project>
