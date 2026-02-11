@@ -16,15 +16,15 @@ public class UserActionAvroSerialization implements Serializer<UserActionAvro> {
     private final EncoderFactory encoderFactory = EncoderFactory.get();
 
     @Override
-    public byte[] serialize(String topic, UserActionAvro data) {
+    public byte[] serialize(final String topic, final UserActionAvro data) {
         if (data == null) {
             return null;
         }
 
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
 
-            BinaryEncoder encoder = encoderFactory.binaryEncoder(outputStream, null);
-            DatumWriter<UserActionAvro> datumWriter = new SpecificDatumWriter<>(UserActionAvro.class);
+            final BinaryEncoder encoder = encoderFactory.binaryEncoder(outputStream, null);
+            final DatumWriter<UserActionAvro> datumWriter = new SpecificDatumWriter<>(UserActionAvro.class);
 
             datumWriter.write(data, encoder);
             encoder.flush();

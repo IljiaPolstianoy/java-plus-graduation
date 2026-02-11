@@ -8,7 +8,7 @@ spring:
       discovery:
         enabled: true
         service-id: config-server
-      fail-fast: false
+      fail-fast: true
       retry:
         use-random-policy: true
         max-interval: 6000
@@ -19,3 +19,4 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+    should-enforce-registration-at-init: true

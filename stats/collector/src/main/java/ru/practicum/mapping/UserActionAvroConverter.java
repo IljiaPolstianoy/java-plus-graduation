@@ -14,7 +14,7 @@ import static ru.practicum.ewm.stats.avro.ActionTypeAvro.*;
 @Component
 public class UserActionAvroConverter {
 
-    public UserActionAvro toAvro(UserActionProto proto) {
+    public UserActionAvro toAvro(final UserActionProto proto) {
         return UserActionAvro.newBuilder()
                 .setUserId(proto.getUserId())
                 .setEventId(proto.getEventId())
@@ -23,14 +23,14 @@ public class UserActionAvroConverter {
                 .build();
     }
 
-    private Instant toInstant(Timestamp timestamp) {
+    private Instant toInstant(final Timestamp timestamp) {
         return Instant.ofEpochSecond(
                 timestamp.getSeconds(),
                 timestamp.getNanos()
         );
     }
 
-    private ActionTypeAvro toActionAvro(ActionTypeProto proto) {
+    private ActionTypeAvro toActionAvro(final ActionTypeProto proto) {
         switch (proto) {
             case ACTION_LIKE -> {
                 return LIKE;
