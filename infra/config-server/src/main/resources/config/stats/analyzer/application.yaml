@@ -1,0 +1,58 @@
+server:
+  port: 0
+#
+##grpc:
+##  server:
+##    port: 0
+#
+### Kafka
+##spring:
+##  kafka:
+##    bootstrap-servers: localhost:9092
+#
+## ========== Настройки логгирования ==========
+#logging:
+#  level:
+#    ru:
+#      practicum:
+#        collector: DEBUG
+#        practicum: DEBUG
+#
+#    # ========== GRPC логгирование ==========
+#    io:
+#      grpc: DEBUG
+#    net:
+#      devh:
+#        boot:
+#          grpc: DEBUG
+#
+#    # ========== KAFKA продюсер ==========
+#    org:
+#      apache:
+#        kafka: INFO
+#        kafka.clients:
+#          producer: DEBUG
+#          producer.internals:
+#            Sender: DEBUG
+#            RecordAccumulator: DEBUG
+#            TransactionManager: DEBUG
+#
+#          # ========== Сетевые соединения ==========
+#          NetworkClient: DEBUG
+#          Metadata: DEBUG
+#          common.network:
+#            Selector: DEBUG
+#
+#        # ========== Сериализация ==========
+#        kafka.common.serialization: DEBUG
+#      springframework:
+#        kafka:
+#          support:
+#            serializer: DEBUG
+#        clients.consumer: INFO
+#
+#        # ========== Автоконфигурация приложения ==========
+#        # Для отладки запуска приложения
+#        boot:
+#          autoconfigure: INFO
+#        context: INFO
