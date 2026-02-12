@@ -58,4 +58,5 @@ public class EventDto {
 
     private Long views;
 
+    private Double rating;
 }

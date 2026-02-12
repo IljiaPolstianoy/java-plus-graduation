@@ -43,8 +43,6 @@
         <module>stats</module>
         <module>infra</module>
         <module>core</module>
-        <module>stats/aggregator</module>
-        <module>stats/analyzer</module>
     </modules>
 
     <dependencyManagement>

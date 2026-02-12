@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS event
     state               VARCHAR(50),
     title               VARCHAR(120),
     -- расчетное поле из сервиса статистики, в бд не пересчитывается
-    views               BIGINT
+    rating              NUMERIC
 );
 
 CREATE TABLE IF NOT EXISTS compilation

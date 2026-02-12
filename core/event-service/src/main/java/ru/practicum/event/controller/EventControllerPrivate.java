@@ -38,7 +38,6 @@ public class EventControllerPrivate {
     public List<EventDtoFull> findEventsByUser(@PathVariable @Positive Long userId,
                                                @RequestParam(name = "from", defaultValue = "0") int from,
                                                @RequestParam(name = "size", defaultValue = "10") int size) {
-
         return eventService.findEventsByUserid(userId, from, size);
     }
 
@@ -57,7 +56,7 @@ public class EventControllerPrivate {
     }
 
     /**
-     *  Получение информации о запросах на участие в событии текущего пользователя
+     * Получение информации о запросах на участие в событии текущего пользователя
      */
     @GetMapping("/{eventId}/requests")
     public List<RequestDto> getRequestsByOwnerOfEvent(@PathVariable @Positive Long userId, @PathVariable @Positive Long eventId) throws EventNotFoundException {
@@ -73,5 +72,4 @@ public class EventControllerPrivate {
                                                        @RequestBody @Validated RequestStatusUpdateDto requestStatusUpdateDto) throws EventNotFoundException, EventNotPublishedException, ParticipantLimitExceededException {
         return requestService.updateRequests(userId, eventId, requestStatusUpdateDto);
     }
-
 }

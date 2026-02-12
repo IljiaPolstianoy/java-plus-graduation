@@ -13,7 +13,6 @@ import ru.practicum.storage.ActionWeightRepository;
 import ru.practicum.storage.UserEventInteractionRepository;
 
 import java.time.Instant;
-import java.util.List;
 
 @Service
 @Slf4j

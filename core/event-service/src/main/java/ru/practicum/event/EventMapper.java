@@ -6,7 +6,6 @@ import ru.practicum.category.Category;
 import ru.practicum.category.CategoryDto;
 import ru.practicum.event.dto.EventDto;
 import ru.practicum.event.dto.EventDtoFull;
-import ru.practicum.user.dto.UserDto;
 import ru.practicum.exception.LocationNotFound;
 import ru.practicum.feign.CategoryFeignClient;
 import ru.practicum.feign.UserFeignClient;
@@ -14,6 +13,8 @@ import ru.practicum.location.Location;
 import ru.practicum.location.LocationDto;
 import ru.practicum.location.LocationRepository;
 import ru.practicum.user.User;
+import ru.practicum.user.dto.UserDto;
+
 
 @Component
 @RequiredArgsConstructor
@@ -37,7 +38,7 @@ public class EventMapper {
                 .participantLimit(event.getParticipantLimit())
                 .requestModeration(event.getRequestModeration())
                 .title(event.getTitle())
-                .views(event.getViews())
+                .rating(event.getRating())
                 .build();
     }
 
@@ -59,7 +60,7 @@ public class EventMapper {
                 .requestModeration(event.getRequestModeration())
                 .state(event.getState())
                 .title(event.getTitle())
-                .views(event.getViews())
+                .rating(event.getRating())
                 .build();
     }
 
@@ -118,7 +119,7 @@ public class EventMapper {
         event.setRequestModeration(eventDtoFull.getRequestModeration());
         event.setTitle(eventDtoFull.getTitle());
         event.setState(eventDtoFull.getState());
-        event.setViews(eventDtoFull.getViews());
+        event.setRating(eventDtoFull.getRating());
         event.setConfirmedRequests(eventDtoFull.getConfirmedRequests());
         event.setCreatedOn(eventDtoFull.getCreatedOn());
         event.setPublishedOn(eventDtoFull.getPublishedOn());

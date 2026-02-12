@@ -1,10 +1,10 @@
 package ru.practicum;
 
+import ru.practicum.exception.*;
 import ru.practicum.request.dto.ConfirmedRequestsCount;
 import ru.practicum.request.dto.RequestDto;
 import ru.practicum.request.dto.RequestStatusUpdateDto;
 import ru.practicum.request.dto.RequestStatusUpdateResultDto;
-import ru.practicum.exception.*;
 
 import java.util.List;
 
@@ -23,5 +23,7 @@ public interface RequestService {
     List<ConfirmedRequestsCount> findConfirmedRequestsCountByEventIds(List<Long> requestId);
 
     Long countConfirmedRequests(Long eventId);
+
+    boolean existsConfirmedRequestByRequesterIdAndEventId(Long userId, Long eventId);
 
 }

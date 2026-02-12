@@ -7,9 +7,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import ru.practicum.category.CategoryDto;
-import ru.practicum.user.dto.UserDto;
 import ru.practicum.enums.EventState;
 import ru.practicum.location.LocationDto;
+import ru.practicum.user.dto.UserDto;
 
 import java.time.LocalDateTime;
 
@@ -45,4 +45,5 @@ public class EventDtoFull {
     private String title;
     private Long views;
 
+    private Double rating;
 }
