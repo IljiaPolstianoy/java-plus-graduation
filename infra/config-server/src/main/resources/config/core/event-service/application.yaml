@@ -52,3 +52,16 @@ spring:
     url: jdbc:h2:mem:main-db
     username: dbuser
     password: 12345
+
+grpc:
+  client:
+    analyzer:
+      address: 'discovery:///analyzer'
+      enable-keep-alive: true
+      keep-alive-without-calls: true
+      negotiation-type: plaintext
+    collector:
+      address: 'discovery:///collector'
+      enable-keep-alive: true
+      keep-alive-without-calls: true
+      negotiation-type: plaintext

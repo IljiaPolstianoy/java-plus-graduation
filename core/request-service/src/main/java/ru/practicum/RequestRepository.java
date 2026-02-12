@@ -16,12 +16,6 @@ import java.util.Optional;
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {
 
-//     getRequestsByOwnerOfEvent
-//    @Query("SELECT r FROM Request r " +
-//            "JOIN Event e ON r.eventId = e.id " +
-//            "WHERE r.eventId = :eventId AND e.initiatorId = :initiatorId")
-//    List<Request> findByEventIdAndEventInitiatorId(@Param("eventId") Long eventId, @Param("initiatorId") Long initiatorId);
-
     List<Request> findByEventId(@Param("eventId") Long eventId);
 
     // createRequest
@@ -63,4 +57,13 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
     List<ConfirmedRequestsCount> findConfirmedRequestsCountByEventIds(@Param("eventIds") List<Long> eventIds);
 
     Long countByEventIdAndStatus(Long eventId, RequestStatus status);
+
+    // МЕТОД: проверка наличия подтвержденной заявки пользователя на мероприятие
+    @Query("SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END " +
+            "FROM Request r " +
+            "WHERE r.requesterId = :userId " +
+            "AND r.eventId = :eventId " +
+            "AND r.status = 'CONFIRMED'")
+    boolean existsConfirmedRequestByRequesterIdAndEventId(@Param("userId") Long userId,
+                                                          @Param("eventId") Long eventId);
 }

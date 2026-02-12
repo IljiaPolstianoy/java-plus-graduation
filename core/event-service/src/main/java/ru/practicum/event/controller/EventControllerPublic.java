@@ -35,4 +35,22 @@ public class EventControllerPublic {
     public EventDtoFull findEvenById(@PathVariable("eventId") @Positive Long eventId, HttpServletRequest request) throws EventNotFoundException {
         return eventService.findEventById(eventId, request);
     }
+
+    /**
+     * GET /events/recommendations — возвращает рекомендации мероприятий для пользователя
+     * Идентификатор пользователя передается в HTTP-заголовке X-EWM-USER-ID
+     */
+    @GetMapping("/recommendations")
+    public List<EventDtoFull> getRecommendations(HttpServletRequest request) {
+        return eventService.getRecommendations(request);
+    }
+
+    /**
+     * GET /events/{eventId}/similar — возвращает похожие мероприятия
+     */
+    @GetMapping("/{eventId}/similar")
+    public List<EventDtoFull> getSimilarEvents(@PathVariable @Positive Long eventId,
+                                               HttpServletRequest request) {
+        return eventService.getSimilarEvents(eventId, request);
+    }
 }

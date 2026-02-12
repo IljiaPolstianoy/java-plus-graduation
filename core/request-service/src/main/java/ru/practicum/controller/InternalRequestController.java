@@ -50,4 +50,12 @@ public class InternalRequestController {
     public Long countConfirmedRequests(final @NotNull @RequestBody Long eventId) {
         return requestService.countConfirmedRequests(eventId);
     }
+
+    @GetMapping("/users/{userId}/events/{eventId}/confirmed")
+    public boolean existsConfirmedRequestByRequesterIdAndEventId(
+            @PathVariable final Long userId,
+            @PathVariable final Long eventId
+    ) {
+        return requestService.existsConfirmedRequestByRequesterIdAndEventId(userId, eventId);
+    }
 }

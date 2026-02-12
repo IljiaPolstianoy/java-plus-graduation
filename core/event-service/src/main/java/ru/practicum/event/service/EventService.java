@@ -47,4 +47,10 @@ public interface EventService {
     Page<Event> findAllByInitiatorIdIn(List<Long> ids, Pageable pageable);
 
     void delete(Long eventId);
+
+    EventDtoFull likeEvent(Long eventId, HttpServletRequest request) throws EventNotFoundException;
+
+    List<EventDtoFull> getRecommendations(HttpServletRequest request);
+
+    List<EventDtoFull> getSimilarEvents(Long eventId, HttpServletRequest request);
 }

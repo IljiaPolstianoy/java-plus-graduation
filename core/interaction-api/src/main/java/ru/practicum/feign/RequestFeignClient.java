@@ -41,4 +41,7 @@ public interface RequestFeignClient {
 
     @PostMapping("/confirmed")
     Long countConfirmedRequests(final @NotNull @RequestBody Long eventId);
+
+    @GetMapping("/users/{userId}/events/{eventId}/confirmed")
+    boolean existsConfirmedRequestByRequesterIdAndEventId(@PathVariable final Long userId, @PathVariable final Long eventId);
 }

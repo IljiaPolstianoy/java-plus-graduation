@@ -187,6 +187,11 @@ public class RequestServiceImpl implements RequestService {
         return requestRepository.countConfirmedRequests(eventId);
     }
 
+    @Override
+    public boolean existsConfirmedRequestByRequesterIdAndEventId(final Long userId, final Long eventId) {
+        return requestRepository.existsConfirmedRequestByRequesterIdAndEventId(userId, eventId);
+    }
+
 
     // Event из EventDtoFull (полное преобразование)
     private Event toEventFromFullDto(EventDtoFull eventDtoFull) {
@@ -202,7 +207,7 @@ public class RequestServiceImpl implements RequestService {
         event.setRequestModeration(eventDtoFull.getRequestModeration());
         event.setTitle(eventDtoFull.getTitle());
         event.setState(eventDtoFull.getState());
-        event.setViews(eventDtoFull.getViews());
+        event.setRating(eventDtoFull.getRating());
         event.setConfirmedRequests(eventDtoFull.getConfirmedRequests());
         event.setCreatedOn(eventDtoFull.getCreatedOn());
         event.setPublishedOn(eventDtoFull.getPublishedOn());

@@ -58,10 +58,9 @@ public class Event {
 
     private String title;
 
-    // Не хранится в бд, получается через клиента из сервера статистики
-    private Long views;
-
     @ManyToMany(mappedBy = "events")
     @JsonIgnore
     private Set<Compilation> compilations;
+
+    private Double rating;
 }

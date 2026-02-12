@@ -1,0 +1,32 @@
+server:
+  port: 0
+
+grpc:
+  server:
+    port: 0
+
+logging:
+  level:
+    # Уровень логирования для AggregationStarter и связанных компонентов
+    ru.yandex.practicum.AggregationStarter: DEBUG
+    ru.yandex.practicum.processor.SnapshotProcessor: DEBUG
+    ru.yandex.practicum.handler.HandlerEvent: DEBUG
+
+    # Spring Kafka — базовые настройки логирования
+    org.springframework.kafka: ERROR
+
+    # Kafka — общие настройки логирования
+    org.apache.kafka: WARN
+    org.apache.kafka.clients.producer: WARN
+    org.apache.kafka.clients.consumer: WARN
+
+    # Отключение подробного логирования сетевых компонентов Kafka
+    org.apache.kafka.clients.NetworkClient: ERROR
+    org.apache.kafka.clients.Metadata: ERROR
+
+    # Отключение детального логирования сериализации Kafka
+    org.apache.kafka.common.serialization: ERROR
+
+    # Детализированное логирование отдельных внутренних компонентов Kafka
+    org.apache.kafka.clients.consumer.internals.ConsumerCoordinator: INFO
+    org.apache.kafka.clients.consumer.internals.Fetcher: INFO

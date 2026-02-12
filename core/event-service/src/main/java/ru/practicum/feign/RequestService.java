@@ -37,4 +37,9 @@ public class RequestService {
     public Long countConfirmedRequests(final Long eventId) {
         return requestFeignClient.countConfirmedRequests(eventId);
     }
+
+    // В RequestService.java
+    public boolean existsConfirmedRequestByRequesterIdAndEventId(Long userId, Long eventId) {
+        return requestFeignClient.existsConfirmedRequestByRequesterIdAndEventId(userId, eventId);
+    }
 }

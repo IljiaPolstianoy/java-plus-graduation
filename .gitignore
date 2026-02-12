@@ -28,5 +28,6 @@ mvnw
 mvnw.cmd
 maven-wrapper.properties
 amplicode.xml
+qodona.yaml
 
 
